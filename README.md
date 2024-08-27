@@ -1,8 +1,8 @@
-<!DOCTYPE html lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Front-End Developer</title>
+    <title>Ahnaf - Software Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .bg-custom-gradient {
@@ -13,8 +13,8 @@
 <body class="bg-gray-100 text-gray-800 font-sans">
 
 <header class="bg-custom-gradient text-white text-center py-10">
-    <h1 class="text-5xl font-bold">Your Name</h1>
-    <p class="text-2xl mt-4">Front-End Developer | JavaScript Enthusiast | UI/UX Designer</p>
+    <h1 class="text-5xl font-bold">Ahnaf</h1>
+    <p class="text-2xl mt-4">Mobile Developer | Fullstack Developer | UI/UX Designer</p>
 </header>
 
 <section class="max-w-6xl mx-auto mt-12 p-8 bg-white rounded-lg shadow-lg">
