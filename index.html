@@ -44,30 +44,36 @@
 
 <body class="bg-gray-100 text-gray-800">
     <!-- Navbar -->
-    <header class="bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg fixed w-full z-50">
+    <header class="bg-white shadow-lg fixed w-full z-50">
         <nav class="container mx-auto p-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white">YourName</a>
-            <button id="menu-btn" class="block md:hidden text-white focus:outline-none">
+            <a href="#" class="text-2xl font-bold text-gray-900">YourName</a>
+            <button id="menu-btn" class="block md:hidden text-gray-900 focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
-            <div id="menu" class="hidden md:flex flex-col md:flex-row md:space-x-4">
-                <a href="#about" class="mx-4 text-white hover:text-gray-300 transition duration-300">About</a>
-                <a href="#services" class="mx-4 text-white hover:text-gray-300 transition duration-300">Services</a>
-                <a href="#portfolio" class="mx-4 text-white hover:text-gray-300 transition duration-300">Portfolio</a>
-                <a href="#contact" class="mx-4 text-white hover:text-gray-300 transition duration-300">Contact</a>
+            <div id="menu" class="hidden md:flex md:space-x-4">
+                <a href="#about" class="mx-4 text-gray-900 hover:text-gray-600 transition duration-300">About</a>
+                <a href="#services" class="mx-4 text-gray-900 hover:text-gray-600 transition duration-300">Services</a>
+                <a href="#portfolio" class="mx-4 text-gray-900 hover:text-gray-600 transition duration-300">Portfolio</a>
+                <a href="#contact" class="mx-4 text-gray-900 hover:text-gray-600 transition duration-300">Contact</a>
             </div>
         </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg p-4">
+            <a href="#about" class="block text-gray-900 hover:text-gray-600 transition duration-300 mb-2">About</a>
+            <a href="#services" class="block text-gray-900 hover:text-gray-600 transition duration-300 mb-2">Services</a>
+            <a href="#portfolio" class="block text-gray-900 hover:text-gray-600 transition duration-300 mb-2">Portfolio</a>
+            <a href="#contact" class="block text-gray-900 hover:text-gray-600 transition duration-300">Contact</a>
+        </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-black via-gray-900 to-orange-500 h-screen flex items-center justify-center" id="hero">
+    <section class="bg-gradient-to-r from-orange-500 via-red-500 to-black h-screen flex items-center justify-center" id="hero">
         <div class="text-center text-white p-8 bg-black bg-opacity-50 rounded-lg slide-up">
             <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I'm YourName</h1>
             <p class="text-xl md:text-2xl mt-4 mb-8">Front-End Developer | Back-End Developer | Mobile Developer | UI/UX Designer</p>
-            <a href="#contact" class="mt-8 inline-block bg-white text-blue-600 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-200 transition duration-300">Let's Work Together</a>
+            <a href="#contact" class="mt-8 inline-block bg-white text-orange-600 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-200 transition duration-300">Let's Work Together</a>
             <div class="flex justify-center mt-8 space-x-6">
                 <a href="#" class="text-white hover:text-gray-300 transition duration-300"><i class="fab fa-github fa-2x"></i></a>
                 <a href="#" class="text-white hover:text-gray-300 transition duration-300"><i class="fab fa-linkedin fa-2x"></i></a>
@@ -83,7 +89,7 @@
             <div class="flex flex-col justify-center fade-in">
                 <h2 class="text-3xl font-bold mb-4">About Me</h2>
                 <p class="text-lg leading-relaxed">I am a versatile developer with experience in both front-end and back-end technologies. My passion for mobile development and UI/UX design allows me to create beautiful, user-friendly applications. I thrive in collaborative environments and love turning complex problems into elegant solutions.</p>
-                <a href="#portfolio" class="mt-4 text-blue-600 hover:underline">View My Work</a>
+                <a href="#portfolio" class="mt-4 text-orange-600 hover:underline">View My Work</a>
             </div>
         </div>
     </section>
@@ -145,15 +151,20 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="bg-blue-600 text-white py-20">
+    <section id="contact" class="bg-orange-600 text-white py-20">
         <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-8 fade-in">Get In Touch</h2>
-            <p class="text-lg mb-8 fade-in">Interested in working together? Let's connect and discuss how we can bring your ideas to life.</p>
-            <form action="#" class="max-w-xl mx-auto fade-in">
-                <input type="text" placeholder="Your Name" class="w-full p-4 mb-4 rounded-lg text-gray-800">
-                <input type="email" placeholder="Your Email" class="w-full p-4 mb-4 rounded-lg text-gray-800">
-                <textarea placeholder="Your Message" class="w-full p-4 mb-4 rounded-lg text-gray-800"></textarea>
-                <button type="submit" class="bg-white text-blue-600 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-200 transition duration-300">Send Message</button>
+            <h2 class="text-3xl font-bold mb-12 fade-in">Get In Touch</h2>
+            <form class="w-full max-w-lg mx-auto fade-in">
+                <div class="mb-4">
+                    <input class="w-full px-4 py-2 rounded-lg shadow-md text-gray-700 focus:outline-none" type="text" placeholder="Your Name">
+                </div>
+                <div class="mb-4">
+                    <input class="w-full px-4 py-2 rounded-lg shadow-md text-gray-700 focus:outline-none" type="email" placeholder="Your Email">
+                </div>
+                <div class="mb-4">
+                    <textarea class="w-full px-4 py-2 rounded-lg shadow-md text-gray-700 focus:outline-none" rows="4" placeholder="Your Message"></textarea>
+                </div>
+                <button class="bg-white text-orange-600 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-200 transition duration-300">Send Message</button>
             </form>
         </div>
     </section>
@@ -165,9 +176,10 @@
     <script>
         const menuBtn = document.getElementById('menu-btn');
         const menu = document.getElementById('menu');
+        const mobileMenu = document.getElementById('mobile-menu');
 
         menuBtn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
 
