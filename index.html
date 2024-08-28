@@ -1,91 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahnaf - Software Developer</title>
+    <title>Your Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .bg-custom-gradient {
-            background: linear-gradient(90deg, #3b82f6, #9333ea);
+        /* Animation styles */
+        .fade-in {
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
 
-<header class="bg-custom-gradient text-white text-center py-10">
-    <h1 class="text-5xl font-bold">Ahnaf</h1>
-    <p class="text-2xl mt-4">Mobile Developer | Fullstack Developer | UI/UX Designer</p>
-</header>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Navbar -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <nav class="container mx-auto p-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">YourName</a>
+            <div>
+                <a href="#about" class="mx-4 hover:text-blue-600">About</a>
+                <a href="#services" class="mx-4 hover:text-blue-600">Services</a>
+                <a href="#portfolio" class="mx-4 hover:text-blue-600">Portfolio</a>
+                <a href="#contact" class="mx-4 hover:text-blue-600">Contact</a>
+            </div>
+        </nav>
+    </header>
 
-<section class="max-w-6xl mx-auto mt-12 p-8 bg-white rounded-lg shadow-lg">
-    <h2 class="text-3xl font-semibold text-blue-600 border-b-4 border-blue-600 pb-2">About Me</h2>
-    <p class="mt-6 text-lg">
-        Passionate Front-End Developer with experience in creating dynamic and responsive websites. Skilled in HTML, CSS, JavaScript, and modern frameworks like React and Vue.js. I love bringing designs to life and optimizing user experience.
-    </p>
-</section>
+    <!-- Hero Section -->
+    <section class="bg-blue-600 text-white h-screen flex items-center justify-center" id="hero">
+        <div class="text-center fade-in">
+            <h1 class="text-4xl md:text-6xl font-bold">Hi, I'm YourName</h1>
+            <p class="text-xl md:text-2xl mt-4">Front-End Developer | Back-End Developer | Mobile Developer | UI/UX Designer</p>
+            <a href="#contact" class="mt-8 inline-block bg-white text-blue-600 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-200">Let's Work Together</a>
+        </div>
+    </section>
 
-<section class="max-w-6xl mx-auto mt-12 p-8 bg-white rounded-lg shadow-lg">
-    <h2 class="text-3xl font-semibold text-blue-600 border-b-4 border-blue-600 pb-2">Skills</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        <div class="text-lg font-medium">
-            <h3 class="text-xl font-semibold text-blue-500">HTML & CSS</h3>
-            <p class="text-gray-600">Semantic HTML, CSS Grid, Flexbox, Responsive Design</p>
+    <!-- About Section -->
+    <section id="about" class="container mx-auto my-20 p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <img src="your-image.jpg" alt="Your Image" class="rounded-lg shadow-lg fade-in">
+            <div class="flex flex-col justify-center fade-in">
+                <h2 class="text-3xl font-bold mb-4">About Me</h2>
+                <p class="text-lg leading-relaxed">I am a versatile developer with experience in both front-end and back-end technologies. My passion for mobile development and UI/UX design allows me to create beautiful, user-friendly applications. I thrive in collaborative environments and love turning complex problems into elegant solutions.</p>
+                <a href="#portfolio" class="mt-4 text-blue-600 hover:underline">View My Work</a>
+            </div>
         </div>
-        <div class="text-lg font-medium">
-            <h3 class="text-xl font-semibold text-blue-500">JavaScript</h3>
-            <p class="text-gray-600">ES6+, DOM Manipulation, AJAX, REST APIs</p>
-        </div>
-        <div class="text-lg font-medium">
-            <h3 class="text-xl font-semibold text-blue-500">Frameworks & Libraries</h3>
-            <p class="text-gray-600">React, Vue.js, Tailwind CSS, Bootstrap</p>
-        </div>
-        <div class="text-lg font-medium">
-            <h3 class="text-xl font-semibold text-blue-500">Version Control</h3>
-            <p class="text-gray-600">Git, GitHub</p>
-        </div>
-        <div class="text-lg font-medium">
-            <h3 class="text-xl font-semibold text-blue-500">UI/UX Design</h3>
-            <p class="text-gray-600">Figma, Adobe XD, Prototyping</p>
-        </div>
-        <div class="text-lg font-medium">
-            <h3 class="text-xl font-semibold text-blue-500">Testing & Debugging</h3>
-            <p class="text-gray-600">Chrome DevTools, Jest, Cypress</p>
-        </div>
-    </div>
-</section>
+    </section>
 
-<section class="max-w-6xl mx-auto mt-12 p-8 bg-white rounded-lg shadow-lg">
-    <h2 class="text-3xl font-semibold text-blue-600 border-b-4 border-blue-600 pb-2">Projects</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-            <h3 class="text-2xl font-semibold text-blue-500">Project Title 1</h3>
-            <p class="text-gray-600 mt-2">
-                A brief description of the project. Discuss the technologies used, your role in the project, and any notable outcomes or features.
-            </p>
-            <a href="https://www.example.com" target="_blank" class="text-blue-600 hover:underline mt-4 block">View Project</a>
+    <!-- Services Section -->
+    <section id="services" class="bg-gray-50 py-20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-12 fade-in">Services I Offer</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 fade-in">
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Front-End Development</h3>
+                    <p>Creating responsive, dynamic, and modern websites using the latest front-end technologies.</p>
+                </div>
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Back-End Development</h3>
+                    <p>Building robust, scalable, and secure server-side applications.</p>
+                </div>
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Mobile Development</h3>
+                    <p>Designing and developing mobile apps for both iOS and Android platforms.</p>
+                </div>
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">UI/UX Design</h3>
+                    <p>Crafting intuitive and visually appealing user interfaces with a focus on user experience.</p>
+                </div>
+            </div>
         </div>
-        <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-            <h3 class="text-2xl font-semibold text-blue-500">Project Title 2</h3>
-            <p class="text-gray-600 mt-2">
-                Another brief description. Highlight what makes this project unique and how it showcases your skills.
-            </p>
-            <a href="https://www.example.com" target="_blank" class="text-blue-600 hover:underline mt-4 block">View Project</a>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="container mx-auto py-20">
+        <h2 class="text-3xl font-bold text-center mb-12 fade-in">Portfolio</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
+            <!-- Portfolio Item 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="portfolio-item-1.jpg" alt="Project 1" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Project Title 1</h3>
+                    <p>Brief description of the project and your role in it.</p>
+                </div>
+            </div>
+            <!-- Portfolio Item 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="portfolio-item-2.jpg" alt="Project 2" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Project Title 2</h3>
+                    <p>Brief description of the project and your role in it.</p>
+                </div>
+            </div>
+            <!-- Portfolio Item 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="portfolio-item-3.jpg" alt="Project 3" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Project Title 3</h3>
+                    <p>Brief description of the project and your role in it.</p>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="max-w-6xl mx-auto mt-12 p-8 bg-white rounded-lg shadow-lg">
-    <h2 class="text-3xl font-semibold text-blue-600 border-b-4 border-blue-600 pb-2">Contact Information</h2>
-    <div class="mt-6 flex flex-col md:flex-row justify-between text-lg">
-        <div class="mb-4 md:mb-0">Email: <a href="mailto:your.email@example.com" class="text-blue-600 hover:underline">your.email@example.com</a></div>
-        <div>LinkedIn: <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="text-blue-600 hover:underline">linkedin.com/in/yourprofile</a></div>
-    </div>
-</section>
+    <!-- Contact Section -->
+    <section id="contact" class="bg-blue-600 text-white py-20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-8 fade-in">Get In Touch</h2>
+            <p class="text-lg mb-8 fade-in">Interested in working together? Let's connect and discuss how we can bring your ideas to life.</p>
+            <form action="#" class="max-w-xl mx-auto fade-in">
+                <input type="text" placeholder="Your Name" class="w-full p-4 mb-4 rounded-lg text-gray-800">
+                <input type="email" placeholder="Your Email" class="w-full p-4 mb-4 rounded-lg text-gray-800">
+                <textarea placeholder="Your Message" class="w-full p-4 mb-4 rounded-lg text-gray-800"></textarea>
+                <button type="submit" class="bg-white text-blue-600 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-200">Send Message</button>
+            </form>
+        </div>
+    </section>
 
-<footer class="text-center py-6 mt-12 bg-gray-200">
-    <p class="text-gray-600">&copy; 2024 Your Name. All rights reserved.</p>
-</footer>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 YourName. All rights reserved.</p>
+        </div>
+    </footer>
 
 </body>
+
 </html>
