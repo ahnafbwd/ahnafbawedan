@@ -2,11 +2,22 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ahnaf</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Icon Vuesax */
+        :root {
+            --Iconsax-Size: 20px;
+            --Iconsax-Color: #9fb3c7;
+        }
+
+        .special-class .iconsax {
+            --Iconsax-Size: 14px;
+            --Iconsax-Color: #696969;
+        }
+
         /* Animation styles */
         .fade-in {
             animation: fadeIn 2s ease-in-out forwards;
@@ -39,7 +50,52 @@
                 transform: translateY(0);
             }
         }
+        /* Skill Carousel Infinity */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .carousel {
+            display: flex;
+            animation: scroll 10s linear infinite;
+        }
+        
+        .carousel-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 150px; /* Sesuaikan dengan lebar logo Anda */
+        }
+        
+        .skill-logo {
+            height: 100px; /* Sesuaikan ukuran logo */
+            transition: transform 0.3s ease; /* Animasi transform */
+        }
+        
+        .skill-logo:hover {
+            transform: scale(1.1); /* Membesarkan logo saat hover */
+        }
+        
+        /* Animasi untuk menggerakkan carousel */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-50%); /* Ganti sesuai jumlah logo */
+            }
+            100% {
+                transform: translateX(-50%); /* Tetap pada posisi akhir */
+            }
+        }
+        
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -48,36 +104,47 @@
         <nav class="container mx-auto p-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-gray-900">Ahnaf</a>
             <button id="menu-btn" class="block md:hidden text-gray-900 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 6h16M4 12h16m-7 6h7" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
             <div id="menu" class="hidden md:flex md:space-x-4">
                 <a href="#about" class="mx-4 text-gray-900 hover:text-gray-600 transition duration-300">About</a>
                 <a href="#services" class="mx-4 text-gray-900 hover:text-gray-600 transition duration-300">Services</a>
-                <a href="#portfolio" class="mx-4 text-gray-900 hover:text-gray-600 transition duration-300">Portfolio</a>
+                <a href="#portfolio"
+                    class="mx-4 text-gray-900 hover:text-gray-600 transition duration-300">Portfolio</a>
                 <a href="#contact" class="mx-4 text-gray-900 hover:text-gray-600 transition duration-300">Contact</a>
             </div>
         </nav>
         <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg p-4">
             <a href="#about" class="block text-gray-900 hover:text-gray-600 transition duration-300 mb-2">About</a>
-            <a href="#services" class="block text-gray-900 hover:text-gray-600 transition duration-300 mb-2">Services</a>
-            <a href="#portfolio" class="block text-gray-900 hover:text-gray-600 transition duration-300 mb-2">Portfolio</a>
+            <a href="#services"
+                class="block text-gray-900 hover:text-gray-600 transition duration-300 mb-2">Services</a>
+            <a href="#portfolio"
+                class="block text-gray-900 hover:text-gray-600 transition duration-300 mb-2">Portfolio</a>
             <a href="#contact" class="block text-gray-900 hover:text-gray-600 transition duration-300">Contact</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-blue-600 via-black to-orange-500 h-screen flex items-center justify-center" id="hero">
+    <section class="bg-gradient-to-br from-blue-600 via-black to-orange-500 h-screen flex items-center justify-center"
+        id="hero">
         <div class="text-center text-white p-8 bg-black bg-opacity-50 rounded-lg slide-up">
             <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I'm Ahnaf</h1>
-            <p class="text-xl md:text-2xl mt-4 mb-8">Web Developer | Mobile Developer | UI/UX Designer</p>
-            <a href="#contact" class="mt-8 inline-block bg-white text-orange-600 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-200 transition duration-300">Let's Work Together</a>
+            <p class="text-xl md:text-2xl mt-4 mb-8">
+                Web Developer | Mobile Developer | UI/UX Designer
+            </p>
+            <a href="#contact"
+                class="mt-8 inline-block bg-white text-orange-600 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-200 transition duration-300">Let's
+                Work Together</a>
             <div class="flex justify-center mt-8 space-x-6">
-                <a href="#" class="text-white hover:text-gray-300 transition duration-300"><i class="fab fa-github fa-2x"></i></a>
-                <a href="#" class="text-white hover:text-gray-300 transition duration-300"><i class="fab fa-linkedin fa-2x"></i></a>
-                <a href="#" class="text-white hover:text-gray-300 transition duration-300"><i class="fab fa-twitter fa-2x"></i></a>
+                <a href="#" class="text-white hover:text-gray-300 transition duration-300"><i
+                        class="fab fa-github fa-2x"></i></a>
+                <a href="#" class="text-white hover:text-gray-300 transition duration-300"><i
+                        class="fab fa-linkedin fa-2x"></i></a>
+                <a href="#" class="text-white hover:text-gray-300 transition duration-300"><i
+                        class="fab fa-twitter fa-2x"></i></a>
             </div>
         </div>
     </section>
@@ -85,167 +152,341 @@
     <!-- About Section -->
     <section id="about" class="container mx-auto my-20 p-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <img src="your-image.jpg" alt="Your Image" class="rounded-lg shadow-lg fade-in">
+            <img src="assets/image/about.jpg" alt="Your Image" class="rounded-lg shadow-lg fade-in" />
             <div class="flex flex-col justify-center fade-in">
                 <h2 class="text-3xl font-bold mb-4">About Me</h2>
-                <p class="text-lg leading-relaxed">I am a versatile developer with experience in both front-end and back-end technologies. My passion for mobile development and UI/UX design allows me to create beautiful, user-friendly applications. I thrive in collaborative environments and love turning complex problems into elegant solutions.</p>
+                <p class="text-lg leading-relaxed">
+                    I am a versatile developer with experience in both front-end and
+                    back-end technologies. My passion for mobile development and UI/UX
+                    design allows me to create beautiful, user-friendly applications. I
+                    thrive in collaborative environments and love turning complex
+                    problems into elegant solutions.
+                </p>
                 <a href="#portfolio" class="mt-4 text-orange-600 hover:underline">View My Work</a>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-<section id="services" class="bg-gray-50 py-20">
-    <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-12 fade-in">Services I Offer</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Service Item 1 -->
-            <div class="bg-white rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl p-6 fade-in">
-                <div class="mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-16 h-16 mx-auto text-orange-600">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l5 5L20 7" />
-                    </svg>
+    <!-- Skills Section -->
+    <section id="skills" class="container mx-auto my-20 p-8 overflow-hidden">
+        <h2 class="text-3xl font-bold text-center mb-12">My Skills</h2>
+        <div class="carousel-container">
+            <div class="carousel">
+                <!-- Set 1 -->
+                <div class="carousel-item">
+                    <img src="assets/image/front-end-logo.png" alt="Front End" class="skill-logo">
                 </div>
-                <h3 class="text-xl font-bold mb-4">Front-End Development</h3>
-                <p class="text-gray-700">Creating responsive, dynamic, and modern websites using the latest front-end technologies.</p>
-            </div>
-            <!-- Service Item 2 -->
-            <div class="bg-white rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl p-6 fade-in">
-                <div class="mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-16 h-16 mx-auto text-orange-600">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15l9 9 9-9-9-9-9 9z" />
-                    </svg>
+                <div class="carousel-item">
+                    <img src="assets/image/back-end-logo.png" alt="Back End" class="skill-logo">
                 </div>
-                <h3 class="text-xl font-bold mb-4">Back-End Development</h3>
-                <p class="text-gray-700">Building robust, scalable, and secure server-side applications.</p>
-            </div>
-            <!-- Service Item 3 -->
-            <div class="bg-white rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl p-6 fade-in">
-                <div class="mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-16 h-16 mx-auto text-orange-600">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7 7 7-7-7-7-7 7z" />
-                    </svg>
+                <div class="carousel-item">
+                    <img src="assets/image/mobile-logo.png" alt="Mobile Development" class="skill-logo">
                 </div>
-                <h3 class="text-xl font-bold mb-4">Mobile Development</h3>
-                <p class="text-gray-700">Designing and developing mobile apps for both iOS and Android platforms.</p>
+                <div class="carousel-item">
+                    <img src="assets/image/ui-ux-logo.png" alt="UI/UX Design" class="skill-logo">
+                </div>
+                <!-- Set 2 (sama dengan set 1) -->
+                <div class="carousel-item">
+                    <img src="assets/image/front-end-logo.png" alt="Front End" class="skill-logo">
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/image/back-end-logo.png" alt="Back End" class="skill-logo">
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/image/mobile-logo.png" alt="Mobile Development" class="skill-logo">
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/image/ui-ux-logo.png" alt="UI/UX Design" class="skill-logo">
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+
+
+    <!-- Services Section -->
+    <section id="services" class="bg-gray-50 py-20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-12 fade-in">Services I Offer</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Item 1 -->
+                <div
+                    class="bg-white rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl p-6 fade-in">
+                    <div class="mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-layout-text-window w-16 h-16 mx-auto text-orange-600" viewBox="0 0 24 24">
+                            <path
+                                d="M3 6.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
+                            <path
+                                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v1H1V2a1 1 0 0 1 1-1zm1 3v10a1 1 0 0 1-1 1h-2V4zm-4 0v11H2a1 1 0 0 1-1-1V4z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">UI / UX Designer</h3>
+                    <p class="text-gray-700">
+                        Creating responsive, dynamic, and modern websites using the latest
+                        front-end technologies.
+                    </p>
+                </div>
+                <!-- Service Item 2 -->
+                <div
+                    class="bg-white rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl p-6 fade-in">
+                    <div class="mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-laptop w-16 h-16 mx-auto text-orange-600" viewBox="0 0 24 24">
+                            <path
+                                d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Fullstack Web Developer</h3>
+                    <p class="text-gray-700">
+                        Building robust, scalable, and secure server-side applications.
+                    </p>
+                </div>
+                <!-- Service Item 3 -->
+                <div
+                    class="bg-white rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl p-6 fade-in">
+                    <div class="mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-phone w-16 h-16 mx-auto text-orange-600" viewBox="0 0 24 24">
+                            <path
+                                d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Mobile Development</h3>
+                    <p class="text-gray-700">
+                        Designing and developing mobile apps for both iOS and Android
+                        platforms.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Portfolio Section -->
-<section id="portfolio" class="py-20 bg-gray-50">
-    <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-12 fade-in">My Portfolio</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Portfolio Item 1 -->
-            <div class="group relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
-                <img src="assets/image/IMG-20240723-WA0007.jpg" alt="Project 1" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <h3 class="text-white text-xl font-bold">Project Title 1</h3>
+    <section id="portfolio" class="py-20 bg-gray-50">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-12 fade-in">My Portfolio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div
+                    class="group relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                    <img src="assets/image/gassin.jpg" alt="Project 1"
+                        class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <h3 class="text-white text-xl font-bold">Project Title 1</h3>
+                    </div>
                 </div>
-            </div>
-            <!-- Portfolio Item 2 -->
-            <div class="group relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
-                <img src="assets/image/IMG-20240723-WA0008.jpg" alt="Project 2" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <h3 class="text-white text-xl font-bold">Project Title 2</h3>
+                <!-- Portfolio Item 2 -->
+                <div
+                    class="group relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                    <img src="assets/image/dikantin.jpg" alt="Project 2"
+                        class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <h3 class="text-white text-xl font-bold">Project Title 2</h3>
+                    </div>
                 </div>
-            </div>
-            <!-- Portfolio Item 3 -->
-            <div class="group relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
-                <img src="assets/image/IMG-20240723-WA0009.jpg" alt="Projek 3" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <h3 class="text-white text-xl font-bold">Project Title 3</h3>
+                <!-- Portfolio Item 3 -->
+                <div
+                    class="group relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                    <img src="assets/image/saysco.png" alt="Projek 3"
+                        class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <h3 class="text-white text-xl font-bold">Project Title 3</h3>
+                    </div>
+                </div>
+                <!-- Portfolio Item 4 -->
+                <div
+                    class="group relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                    <img src="assets/image/dapurbunda.png" alt="Projek 3"
+                        class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <h3 class="text-white text-xl font-bold">Project Title 3</h3>
+                    </div>
+                </div>
+                <!-- Portfolio Item 5 -->
+                <div
+                    class="group relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                    <img src="assets/image/kaba.jpg" alt="Projek 3"
+                        class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <h3 class="text-white text-xl font-bold">Project Title 3</h3>
+                    </div>
+                </div>
+                <!-- Portfolio Item 6 -->
+                <div
+                    class="group relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                    <img src="assets/image/caricuan.png" alt="Projek 3"
+                        class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <h3 class="text-white text-xl font-bold">Project Title 3</h3>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Contact Section -->
-<section id="contact" class="py-20 bg-gray-50">
-    <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-12 fade-in">Get in Touch</h2>
-        <p class="text-lg mb-8">I’d love to hear from you! Fill out the form below or reach me at my email.</p>
-        <div class="max-w-lg mx-auto">
-            <form action="#" method="POST" class="bg-white p-8 rounded-lg shadow-lg space-y-6">
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" id="name" name="name" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" placeholder="Your Name">
-                </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" placeholder="Your Email">
-                </div>
-                <div>
-                    <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                    <textarea id="message" name="message" required rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" placeholder="Your Message"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-orange-600 text-white font-bold py-3 rounded-md hover:bg-orange-500 transition duration-300">Send Message</button>
-            </form>
-        </div>
-    </div>
-</section>
-
-    <!-- Footer Section -->
-<footer class="bg-gray-800 text-white py-10">
-    <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row md:justify-between mb-8">
-            <!-- Footer Logo and Description -->
-            <div class="mb-6 md:mb-0">
-                <h1 class="text-3xl font-bold mb-2">Ahnaf</h1>
-                <p class="text-gray-400">Providing top-notch web, mobile app, and UI/UX design services to bring your ideas to life.</p>
+    <section id="contact" class="bg-gradient-to-br from-blue-600 via-white to-orange-500 py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+                <p class="text-lg text-gray-600">I'd love to hear from you! Whether it's a project, job opportunity, or
+                    just a chat.</p>
             </div>
-            <!-- Footer Links -->
-            <div class="flex flex-col md:flex-row md:space-x-10 mb-6 md:mb-0">
-                <div class="mb-6 md:mb-0">
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul>
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="#services" class="text-gray-400 hover:text-white transition duration-300">Services</a></li>
-                        <li><a href="#portfolio" class="text-gray-400 hover:text-white transition duration-300">Portfolio</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
-                    </ul>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Form -->
+                <div class="bg-white bg-opacity-50 p-8 shadow-lg rounded-lg">
+                    <form action="#" method="POST">
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-semibold text-gray-600">Name</label>
+                            <input type="text" id="name" name="name"
+                                class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-semibold text-gray-600">Email</label>
+                            <input type="email" id="email" name="email"
+                                class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block text-sm font-semibold text-gray-600">Message</label>
+                            <textarea id="message" name="message" rows="5"
+                                class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                required></textarea>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit"
+                                class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-500 transition duration-300">Send
+                                Message</button>
+                        </div>
+                    </form>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4 4 1.79 4 4zM4.88 14.82A9.951 9.951 0 014 12c0-1.23.25-2.39.68-3.42l1.38 1.38A6.016 6.016 0 005.5 12c0 1.5.55 2.87 1.45 3.93L4.88 14.82zM21.12 14.82l-1.58-1.87a6.016 6.016 0 001.27-2.58l1.38-1.38A9.951 9.951 0 0120 12c0 1.23-.25 2.39-.68 3.42l-1.38-1.38A6.016 6.016 0 0018.5 12c0-1.5-.55-2.87-1.45-3.93l1.58-1.87A9.951 9.951 0 0120 12c0 1.23-.25 2.39-.68 3.42l-1.38-1.38A6.016 6.016 0 0018.5 12c0-1.5-.55-2.87-1.45-3.93l1.58-1.87A9.951 9.951 0 0120 12zM12 20c-1.3 0-2.54-.15-3.74-.42l1.38-1.38c.7.14 1.42.21 2.16.21 1.79 0 3.42-.53 4.82-1.42l1.58 1.87A9.957 9.957 0 0112 20z" />
+
+                <!-- Contact Information -->
+                <div class="bg-white bg-opacity-100 p-8 shadow-lg rounded-lg text-gray-800">
+                    <h3 class="text-2xl font-bold mb-4">Contact Information</h3>
+                    <p class="mb-4">Feel free to reach out via any of the methods below:</p>
+                    <ul>
+                        <li class="mb-4">
+                            <span class="font-semibold">Email:</span> <a href="mailto:your.email@example.com"
+                                class="underline hover:text-blue-500 transition duration-300">your.email@example.com</a>
+                        </li>
+                        <li class="mb-4">
+                            <span class="font-semibold">Phone:</span> <a href="tel:+123456789"
+                                class="underline hover:text-blue-500 transition duration-300">+1 234 567 89</a>
+                        </li>
+                        <li class="mb-4">
+                            <span class="font-semibold">Location:</span> 123 Main Street, Your City, Country
+                        </li>
+                    </ul>
+                    <div class="flex space-x-6 mt-6">
+                        <a href="#" class="hover:text-blue-500 transition duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M22.23 0H1.77C.792 0 0 .795 0 1.778v20.445C0 23.205.792 24 1.77 24h20.46C23.205 24 24 23.205 24 22.223V1.777C24 .795 23.205 0 22.23 0zm-6.323 8.306v10.808H12.83V8.306h-1.883V6.195h1.883v-1.41c0-1.928 1.181-2.995 2.905-2.995.824 0 1.53.061 1.735.089v2.01h-1.191c-.933 0-1.115.444-1.115 1.093v1.213h2.219l-.288 2.111h-1.93z" />
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v16l7-7 7 7V3" />
+                        <a href="#" class="hover:text-blue-500 transition duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M23.5 6.083c-.852.378-1.764.635-2.719.75a4.88 4.88 0 002.149-2.693 9.84 9.84 0 01-3.11 1.186A4.885 4.885 0 0016.418 4c-2.71 0-4.91 2.217-4.91 4.94 0 .387.042.762.127 1.123-4.084-.206-7.698-2.169-10.12-5.16a5.02 5.02 0 00-.664 2.486c0 1.72.868 3.237 2.186 4.12-.807-.025-1.57-.251-2.236-.624v.063c0 2.407 1.704 4.413 3.963 4.872a4.975 4.975 0 01-1.288.172c-.314 0-.617-.031-.914-.087.615 1.944 2.4 3.36 4.513 3.4a9.845 9.845 0 01-6.09 2.12c-.394 0-.78-.023-1.16-.068a13.897 13.897 0 007.53 2.216c9.032 0 13.975-7.515 13.975-14.03 0-.214-.005-.429-.015-.643a9.978 9.978 0 002.46-2.556z" />
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 8c-1.74 1.68-3.99 2.8-6.5 2.8S8.74 9.68 7 8c-1.74-1.68-2.8-3.99-2.8-6.5S5.26 0 7 1.5c1.74 1.68 3.99 2.8 6.5 2.8s4.76-1.12 6.5-2.8C21.88 2.12 23 3.34 23 5s-1.12 3.32-2.8 4.5zM7 14.5c1.74 1.68 3.99 2.8 6.5 2.8s4.76-1.12 6.5-2.8C21.88 13.12 23 14.34 23 16s-1.12 3.32-2.8 4.5c-1.74 1.68-3.99 2.8-6.5 2.8s-4.76-1.12-6.5-2.8C2.12 19.32 1 18.1 1 16s1.12-3.32 2.8-4.5z" />
+                        <a href="#" class="hover:text-blue-500 transition duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M19.6 0H4.4A4.41 4.41 0 000 4.4v15.2A4.41 4.41 0 004.4 24h15.2A4.41 4.41 0 0024 19.6V4.4A4.41 4.41 0 0019.6 0zM8.09 20.04H4.94V9.04h3.15v11zM6.51 7.77a1.82 1.82 0 110-3.64 1.82 1.82 0 110 3.64zm13.53 12.27h-3.15V14.4c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.15 1.46-2.15 2.96v5.74h-3.15V9.04h3.02v1.51h.04c.42-.81 1.44-1.67 2.98-1.67 3.19 0 3.78 2.1 3.78 4.84v6.31z" />
                             </svg>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="text-center border-t border-gray-700 pt-6">
-            <p class="text-gray-400">© 2024 Ahnaf. All rights reserved.</p>
+    </section>
+
+
+
+
+    <!-- Footer Section -->
+    <footer class="bg-white text-gray-800 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <!-- Footer Brand and Description -->
+                <div>
+                    <h1 class="text-4xl font-bold mb-4 text-blue-600">Ahnaf</h1>
+                    <p class="text-gray-600 leading-relaxed">Full-Stack Developer specializing in modern web and mobile
+                        development, passionate about creating intuitive user experiences and functional applications.
+                    </p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul>
+                        <li><a href="#home" class="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
+                        </li>
+                        <li><a href="#services"
+                                class="text-gray-600 hover:text-blue-600 transition duration-300">Services</a></li>
+                        <li><a href="#portfolio"
+                                class="text-gray-600 hover:text-blue-600 transition duration-300">Portfolio</a></li>
+                        <li><a href="#contact"
+                                class="text-gray-600 hover:text-blue-600 transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Social Media Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Me</h3>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                class="w-6 h-6">
+                                <path
+                                    d="M22.23 0H1.77C.792 0 0 .795 0 1.778v20.445C0 23.205.792 24 1.77 24h20.46C23.205 24 24 23.205 24 22.223V1.777C24 .795 23.205 0 22.23 0zm-6.323 8.306v10.808H12.83V8.306h-1.883V6.195h1.883v-1.41c0-1.928 1.181-2.995 2.905-2.995.824 0 1.53.061 1.735.089v2.01h-1.191c-.933 0-1.115.444-1.115 1.093v1.213h2.219l-.288 2.111h-1.93z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                class="w-6 h-6">
+                                <path
+                                    d="M23.5 6.083c-.852.378-1.764.635-2.719.75a4.88 4.88 0 002.149-2.693 9.84 9.84 0 01-3.11 1.186A4.885 4.885 0 0016.418 4c-2.71 0-4.91 2.217-4.91 4.94 0 .387.042.762.127 1.123-4.084-.206-7.698-2.169-10.12-5.16a5.02 5.02 0 00-.664 2.486c0 1.72.868 3.237 2.186 4.12-.807-.025-1.57-.251-2.236-.624v.063c0 2.407 1.704 4.413 3.963 4.872a4.975 4.975 0 01-1.288.172c-.314 0-.617-.031-.914-.087.615 1.944 2.4 3.36 4.513 3.4a9.845 9.845 0 01-6.09 2.12c-.394 0-.78-.023-1.16-.068a13.897 13.897 0 007.53 2.216c9.032 0 13.975-7.515 13.975-14.03 0-.214-.005-.429-.015-.643a9.978 9.978 0 002.46-2.556z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                class="w-6 h-6">
+                                <path
+                                    d="M19.6 0H4.4A4.41 4.41 0 000 4.4v15.2A4.41 4.41 0 004.4 24h15.2A4.41 4.41 0 0024 19.6V4.4A4.41 4.41 0 0019.6 0zM8.09 20.04H4.94V9.04h3.15v11zM6.51 7.77a1.82 1.82 0 110-3.64 1.82 1.82 0 110 3.64zm13.53 12.27h-3.15V14.4c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.15 1.46-2.15 2.96v5.74h-3.15V9.04h3.02v1.51h.04c.42-.81 1.44-1.67 2.98-1.67 3.19 0 3.78 2.1 3.78 4.84v6.31z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center border-t border-gray-200 pt-6">
+                <p class="text-gray-500">© 2024 Ahnaf. All rights reserved.</p>
+            </div>
         </div>
-    </div>
-</footer>
-
+    </footer>
+    
     <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const menu = document.getElementById('menu');
-        const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById("menu-btn");
+        const menu = document.getElementById("menu");
+        const mobileMenu = document.getElementById("mobile-menu");
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
         });
     </script>
-
 </body>
 
 </html>
