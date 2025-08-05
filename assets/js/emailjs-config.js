@@ -14,10 +14,22 @@ function sendEmail(formData) {
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
         {
+            // Variables sesuai dengan template EmailJS yang ada
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            time: new Date().toLocaleString('id-ID', {
+                timeZone: 'Asia/Jakarta',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }),
+            // Variables tambahan untuk fallback dan compatibility
+            subject: formData.subject,
             from_name: formData.name,
             from_email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
             to_email: EMAILJS_CONFIG.TO_EMAIL,
             reply_to: formData.email
         }
