@@ -762,30 +762,34 @@
             <div class="flex justify-center mb-12">
                 <div class="flex space-x-4">
                     <button class="filter-btn px-4 py-2 rounded-full gradient-bg text-white font-semibold" data-filter="all">All</button>
+                    <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-dark font-semibold" data-filter="mobile">Mobile</button>
                     <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-dark font-semibold" data-filter="web">Web</button>
-                    <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-dark font-semibold" data-filter="app">App</button>
                     <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-dark font-semibold" data-filter="design">Design</button>
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 project-container">
                 <!-- Project 1 -->
-                <div class="project-item card p-4" data-category="app">
+                <div class="project-item card p-4" data-category="web">
                     <div class="relative overflow-hidden rounded-lg mb-4 h-48">
                         <img src="assets/image/kaba.jpg" alt="Kaba Arabic learning mobile app interface" class="w-full h-full object-cover transition duration-500 hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark opacity-70 flex items-end p-4">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
                             <div>
-                                <h4 class="text-white font-bold text-xl">Kaba - Arabic Learning</h4>
-                                <p class="text-gray-300">Educational Mobile App</p>
+                                <h4 class="text-white font-bold text-xl mb-1">Kaba - Arabic Learning</h4>
+                                <p class="text-gray-200 text-sm">Educational Web App</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-sm text-gray-500">Flutter, Firebase</span>
-                        <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                    <div class="mb-3">
+                        <h3 class="font-bold text-lg mb-2">Kaba - Arabic Learning App</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Web Application</span>
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">HTML • CSS • JavaScript</p>
                     </div>
-                    <p class="text-gray-600 mb-4">
-                        Interactive Arabic learning app with comprehensive lessons and progress tracking for beginners to advanced learners.
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Interactive Arabic learning web application with comprehensive lessons and progress tracking for beginners to advanced learners.
                     </p>
                     <div class="flex justify-end">
                         <a href="#" class="px-4 py-1 rounded-full gradient-bg text-white text-sm font-semibold">View Details</a>
@@ -793,21 +797,25 @@
                 </div>
                 
                 <!-- Project 2 -->
-                <div class="project-item card p-4" data-category="app">
+                <div class="project-item card p-4" data-category="mobile">
                     <div class="relative overflow-hidden rounded-lg mb-4 h-48">
                         <img src="assets/image/dapurbunda.png" alt="Dapur Bunda catering mobile app interface" class="w-full h-full object-cover transition duration-500 hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark opacity-70 flex items-end p-4">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
                             <div>
-                                <h4 class="text-white font-bold text-xl">Dapur Bunda</h4>
-                                <p class="text-gray-300">Catering Mobile App</p>
+                                <h4 class="text-white font-bold text-xl mb-1">Dapur Bunda</h4>
+                                <p class="text-gray-200 text-sm">Catering Mobile App</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-sm text-gray-500">Flutter, Firebase, Rest API</span>
-                        <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                    <div class="mb-3">
+                        <h3 class="font-bold text-lg mb-2">Dapur Bunda Catering</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm bg-orange-100 text-orange-800 px-2 py-1 rounded-full">Mobile App</span>
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">Flutter • Firebase • REST API</p>
                     </div>
-                    <p class="text-gray-600 mb-4">
+                    <p class="text-gray-600 mb-4 text-sm">
                         Full-featured catering app with menu browsing, order management, and real-time tracking for local catering business.
                     </p>
                     <div class="flex justify-end">
@@ -816,21 +824,25 @@
                 </div>
                 
                 <!-- Project 3 -->
-                <div class="project-item card p-4" data-category="app">
+                <div class="project-item card p-4" data-category="mobile">
                     <div class="relative overflow-hidden rounded-lg mb-4 h-48">
                         <img src="assets/image/dikantin.jpg" alt="DiKantin mobile application interface" class="w-full h-full object-cover transition duration-500 hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark opacity-70 flex items-end p-4">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
                             <div>
-                                <h4 class="text-white font-bold text-xl">DiKantin</h4>
-                                <p class="text-gray-300">Food Ordering App</p>
+                                <h4 class="text-white font-bold text-xl mb-1">DiKantin</h4>
+                                <p class="text-gray-200 text-sm">Food Ordering App</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-sm text-gray-500">Flutter, Firebase</span>
-                        <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                    <div class="mb-3">
+                        <h3 class="font-bold text-lg mb-2">DiKantin Food Ordering</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">Mobile App</span>
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">Flutter • Firebase • Dart</p>
                     </div>
-                    <p class="text-gray-600 mb-4">
+                    <p class="text-gray-600 mb-4 text-sm">
                         Mobile food ordering application for campus canteen with real-time menu updates and order tracking.
                     </p>
                     <div class="flex justify-end">
@@ -839,21 +851,25 @@
                 </div>
                 
                 <!-- Project 4 -->
-                <div class="project-item card p-4" data-category="app">
+                <div class="project-item card p-4" data-category="mobile">
                     <div class="relative overflow-hidden rounded-lg mb-4 h-48">
                         <img src="assets/image/gassin.jpg" alt="Gassin (Rumah Gas) mobile application interface" class="w-full h-full object-cover transition duration-500 hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark opacity-70 flex items-end p-4">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
                             <div>
-                                <h4 class="text-white font-bold text-xl">Gassin - Rumah Gas</h4>
-                                <p class="text-gray-300">Gas Delivery App</p>
+                                <h4 class="text-white font-bold text-xl mb-1">Gassin - Rumah Gas</h4>
+                                <p class="text-gray-200 text-sm">Gas Delivery App</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-sm text-gray-500">Flutter, Firebase, Maps API</span>
-                        <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                    <div class="mb-3">
+                        <h3 class="font-bold text-lg mb-2">Gassin Gas Delivery</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm bg-red-100 text-red-800 px-2 py-1 rounded-full">Mobile App</span>
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">Flutter • Firebase • Google Maps API</p>
                     </div>
-                    <p class="text-gray-600 mb-4">
+                    <p class="text-gray-600 mb-4 text-sm">
                         Gas delivery application with real-time tracking, online payment, and location-based services for gas cylinder orders.
                     </p>
                     <div class="flex justify-end">
@@ -862,22 +878,26 @@
                 </div>
                 
                 <!-- Project 5 -->
-                <div class="project-item card p-4" data-category="design">
+                <div class="project-item card p-4" data-category="mobile">
                     <div class="relative overflow-hidden rounded-lg mb-4 h-48">
                         <img src="assets/image/saysco.png" alt="Saysco mobile application design" class="w-full h-full object-cover transition duration-500 hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark opacity-70 flex items-end p-4">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
                             <div>
-                                <h4 class="text-white font-bold text-xl">Saysco</h4>
-                                <p class="text-gray-300">UI/UX Design</p>
+                                <h4 class="text-white font-bold text-xl mb-1">Saysco</h4>
+                                <p class="text-gray-200 text-sm">Mobile App</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-sm text-gray-500">Figma, Adobe XD</span>
-                        <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                    <div class="mb-3">
+                        <h3 class="font-bold text-lg mb-2">Saysco Mobile App</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">Mobile App</span>
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">Flutter • Firebase • Dart</p>
                     </div>
-                    <p class="text-gray-600 mb-4">
-                        Modern and intuitive UI/UX design for Saysco application with focus on user experience and visual aesthetics.
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Modern mobile application with intuitive interface and advanced features for enhanced user experience.
                     </p>
                     <div class="flex justify-end">
                         <a href="#" class="px-4 py-1 rounded-full gradient-bg text-white text-sm font-semibold">View Details</a>
@@ -885,22 +905,80 @@
                 </div>
                 
                 <!-- Project 6 -->
-                <div class="project-item card p-4" data-category="web">
+                <div class="project-item card p-4" data-category="design">
                     <div class="relative overflow-hidden rounded-lg mb-4 h-48">
                         <img src="assets/image/caricuan.png" alt="Caricuan web application" class="w-full h-full object-cover transition duration-500 hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark opacity-70 flex items-end p-4">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
                             <div>
-                                <h4 class="text-white font-bold text-xl">Caricuan</h4>
-                                <p class="text-gray-300">Web Application</p>
+                                <h4 class="text-white font-bold text-xl mb-1">Caricuan</h4>
+                                <p class="text-gray-200 text-sm">UI/UX Design</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-sm text-gray-500">HTML, CSS, JavaScript, PHP</span>
-                        <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                    <div class="mb-3">
+                        <h3 class="font-bold text-lg mb-2">Caricuan UI/UX Design</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm bg-purple-100 text-purple-800 px-2 py-1 rounded-full">UI/UX Design</span>
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">Figma • Adobe XD • Prototyping</p>
                     </div>
-                    <p class="text-gray-600 mb-4">
-                        Modern web application built with responsive design and interactive features for enhanced user experience.
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Comprehensive UI/UX design project with modern interface design and user experience optimization.
+                    </p>
+                    <div class="flex justify-end">
+                        <a href="#" class="px-4 py-1 rounded-full gradient-bg text-white text-sm font-semibold">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Project 7 -->
+                <div class="project-item card p-4" data-category="mobile">
+                    <div class="relative overflow-hidden rounded-lg mb-4 h-48">
+                        <img src="assets/image/miecustom.png" alt="Mie Custom mobile application interface" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                            <div>
+                                <h4 class="text-white font-bold text-xl mb-1">Mie Custom</h4>
+                                <p class="text-gray-200 text-sm">Food Customization App</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h3 class="font-bold text-lg mb-2">Mie Custom Order</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Mobile App</span>
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">Flutter • Firebase • Payment Gateway</p>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Custom noodle ordering app allowing customers to customize their orders with various toppings and preferences.
+                    </p>
+                    <div class="flex justify-end">
+                        <a href="#" class="px-4 py-1 rounded-full gradient-bg text-white text-sm font-semibold">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Project 8 -->
+                <div class="project-item card p-4" data-category="web">
+                    <div class="relative overflow-hidden rounded-lg mb-4 h-48">
+                        <img src="assets/image/mighty.jpg" alt="Mighty Indonesia mobile application interface" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                            <div>
+                                <h4 class="text-white font-bold text-xl mb-1">Mighty Indonesia</h4>
+                                <p class="text-gray-200 text-sm">Web Application</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h3 class="font-bold text-lg mb-2">Mighty Indonesia</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Web Application</span>
+                            <a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">HTML • CSS • JavaScript • PHP</p>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Business management web platform for Mighty Indonesia with features for inventory, sales tracking, and customer management.
                     </p>
                     <div class="flex justify-end">
                         <a href="#" class="px-4 py-1 rounded-full gradient-bg text-white text-sm font-semibold">View Details</a>
@@ -1269,6 +1347,24 @@
                             <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition"></textarea>
                         </div>
                         <button type="submit" class="w-full px-6 py-3 rounded-full gradient-bg text-white font-semibold hover:shadow-lg transition">Send Message</button>
+                        
+                        <!-- Alternative: Direct Email Link -->
+                        <div class="mt-4 text-center">
+                            <p class="text-sm text-gray-500 mb-2">Alternative contact methods:</p>
+                            <div class="flex flex-col sm:flex-row gap-2 justify-center">
+                                <a href="mailto:ahnafbawedan01@gmail.com?subject=Portfolio Contact&body=Hi Ahnaf," 
+                                   class="inline-flex items-center justify-center px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                                    <i class="fas fa-envelope mr-2"></i>
+                                    Open Email Client
+                                </a>
+                                <a href="https://wa.me/6282137563329?text=Hi Ahnaf, I'm interested in your services" 
+                                   target="_blank"
+                                   class="inline-flex items-center justify-center px-4 py-2 text-sm border border-green-500 text-green-600 rounded-lg hover:bg-green-50 transition">
+                                    <i class="fab fa-whatsapp mr-2"></i>
+                                    WhatsApp
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -1301,7 +1397,7 @@
                 <a href="https://github.com/fahnsomt" target="_blank" class="text-white hover:text-gray-200 transition text-xl"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/ahnaf-rosyadi/" target="_blank" class="text-white hover:text-gray-200 transition text-xl"><i class="fab fa-linkedin-in"></i></a>
                 <a href="https://instagram.com/fahnswd" target="_blank" class="text-white hover:text-gray-200 transition text-xl"><i class="fab fa-instagram"></i></a>
-                <a href="mailto:ahnafrosyadi14@gmail.com" class="text-white hover:text-gray-200 transition text-xl"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:ahnafbawedan01@gmail.com" class="text-white hover:text-gray-200 transition text-xl"><i class="fas fa-envelope"></i></a>
             </div>
             
             <p class="text-sm">© 2025 Ahnaf Rosyadi. All rights reserved.</p>
@@ -1309,6 +1405,12 @@
     </footer>
     
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- EmailJS Configuration -->
+    <script src="assets/js/emailjs-config.js"></script>
+    <!-- Email Fallback System -->
+    <script src="assets/js/email-fallback.js"></script>
     <script>
         // Mobile menu toggle
         const menuBtn = document.getElementById('menu-btn');
@@ -1402,24 +1504,65 @@
             });
         });
         
-        // Form submission
+        // Form submission with multiple email services
         const contactForm = document.getElementById('contact-form');
         
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                subject: document.getElementById('subject').value.trim(),
+                message: document.getElementById('message').value.trim()
+            };
             
-            // Here you would typically send the form data to a server
-            // For this example, we'll just log it and show an alert
-            console.log({name, email, subject, message});
+            // Validate form
+            if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+                alert('Please fill in all fields.');
+                return;
+            }
             
-            alert('Thank you for your message! I will get back to you soon.');
-            contactForm.reset();
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Try sending email with fallback system
+                const result = await sendEmailWithFallback(formData);
+                console.log('SUCCESS!', result);
+                
+                // Show success message
+                alert(`✅ Thank you for your message! Email sent successfully via ${result.service}. I will get back to you soon.`);
+                contactForm.reset();
+                
+            } catch (error) {
+                console.error('All email services failed:', error);
+                
+                // Show error message with fallback options
+                const mailtoLink = `mailto:ahnafbawedan01@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Hi Ahnaf,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+                
+                const errorMsg = `❌ Unable to send email automatically. Please use one of these alternatives:\n\n1. Click "Open Email Client" button below\n2. Email directly: ahnafbawedan01@gmail.com\n3. WhatsApp: +62 821 3756 3329`;
+                alert(errorMsg);
+                
+                // Auto-open email client as fallback
+                window.location.href = mailtoLink;
+                
+            } finally {
+                // Reset button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
         });
         
         // Particles.js configuration for hero section
