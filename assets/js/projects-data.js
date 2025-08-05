@@ -1,0 +1,185 @@
+// Project data embedded directly in JavaScript to avoid CORS issues
+window.projectData = {
+  "projects": [
+    {
+      "id": 1,
+      "title": "Saysco Inventory System",
+      "category": "web",
+      "categoryLabel": "Web Application",
+      "image": "assets/image/saysco.png",
+      "technologies": ["Laravel", "MySQL", "Bootstrap", "JavaScript"],
+      "description": "Comprehensive inventory management system with real-time stock tracking, automated reports, and multi-user access control.",
+      "features": [
+        "Real-time inventory tracking",
+        "Automated stock alerts",
+        "Multi-user role management",
+        "Comprehensive reporting"
+      ],
+      "status": "Completed",
+      "year": "2024",
+      "client": "Saysco Company",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 2,
+      "title": "Dapur Bunda Catering",
+      "category": "mobile",
+      "categoryLabel": "Mobile App",
+      "image": "assets/image/dapurbunda.png",
+      "technologies": ["Flutter", "Firebase", "REST API", "Dart"],
+      "description": "Full-featured catering app with menu browsing, order management, and real-time tracking for local catering business.",
+      "features": [
+        "Menu browsing and filtering",
+        "Real-time order tracking",
+        "Payment integration",
+        "Customer reviews and ratings"
+      ],
+      "status": "Completed",
+      "year": "2024",
+      "client": "Dapur Bunda",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 3,
+      "title": "DiKantin Food Ordering",
+      "category": "mobile",
+      "categoryLabel": "Mobile App",
+      "image": "assets/image/dikantin.jpg",
+      "technologies": ["Flutter", "Firebase", "Dart", "Cloud Functions"],
+      "description": "Mobile food ordering application for campus canteen with real-time menu updates and order tracking.",
+      "features": [
+        "Real-time menu display",
+        "Order queue management",
+        "Push notifications",
+        "Payment gateway integration"
+      ],
+      "status": "Completed",
+      "year": "2024",
+      "client": "Campus Canteen",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 4,
+      "title": "Gassin Gas Delivery",
+      "category": "mobile",
+      "categoryLabel": "Mobile App",
+      "image": "assets/image/gassin.jpg",
+      "technologies": ["Flutter", "Firebase", "Google Maps", "Dart"],
+      "description": "On-demand gas delivery application with GPS tracking, real-time updates, and secure payment system.",
+      "features": [
+        "Real-time GPS tracking",
+        "Automated delivery scheduling",
+        "Secure payment processing",
+        "Customer notification system"
+      ],
+      "status": "Completed",
+      "year": "2024",
+      "client": "Gas Delivery Service",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 5,
+      "title": "Kaba Arabic Learning",
+      "category": "mobile",
+      "categoryLabel": "Mobile App",
+      "image": "assets/image/kaba.jpg",
+      "technologies": ["Flutter", "SQLite", "Audio API", "Dart"],
+      "description": "Interactive Arabic learning app with pronunciation guides, quizzes, and progress tracking for students.",
+      "features": [
+        "Interactive lessons",
+        "Audio pronunciation guides",
+        "Progress tracking",
+        "Quiz and assessment system"
+      ],
+      "status": "Completed",
+      "year": "2024",
+      "client": "Kaba Arabic Course",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 6,
+      "title": "Mighty Indonesia Portfolio",
+      "category": "web",
+      "categoryLabel": "Web Design",
+      "image": "assets/image/mighty.jpg",
+      "technologies": ["HTML5", "CSS3", "JavaScript", "Bootstrap"],
+      "description": "Professional company portfolio website with modern design, responsive layout, and interactive elements.",
+      "features": [
+        "Responsive design",
+        "Interactive animations",
+        "Contact form integration",
+        "SEO optimization"
+      ],
+      "status": "Completed",
+      "year": "2024",
+      "client": "Mighty Indonesia",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 7,
+      "title": "Caricuan Digital Platform",
+      "category": "web",
+      "categoryLabel": "Web Application",
+      "image": "assets/image/caricuan.png",
+      "technologies": ["React", "Node.js", "MongoDB", "Express"],
+      "description": "Digital platform for creative content sharing with user management, content moderation, and social features.",
+      "features": [
+        "User authentication system",
+        "Content management",
+        "Social interaction features",
+        "Admin dashboard"
+      ],
+      "status": "In Progress",
+      "year": "2024",
+      "client": "Caricuan Creative",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 8,
+      "title": "MieCustom Ordering System",
+      "category": "web",
+      "categoryLabel": "Web Application",
+      "image": "assets/image/miecustom.png",
+      "technologies": ["PHP", "MySQL", "jQuery", "Bootstrap"],
+      "description": "Custom noodle ordering system with ingredient customization, order tracking, and inventory management.",
+      "features": [
+        "Ingredient customization",
+        "Order management",
+        "Inventory tracking",
+        "Customer dashboard"
+      ],
+      "status": "Completed",
+      "year": "2023",
+      "client": "MieCustom Restaurant",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 9,
+      "title": "UI/UX Design Portfolio",
+      "category": "design",
+      "categoryLabel": "UI/UX Design",
+      "image": "assets/image/about.jpg",
+      "technologies": ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
+      "description": "Collection of user interface and user experience design projects for various mobile and web applications.",
+      "features": [
+        "Mobile app designs",
+        "Web interface mockups",
+        "User journey mapping",
+        "Prototype development"
+      ],
+      "status": "Ongoing",
+      "year": "2023-2024",
+      "client": "Various Clients",
+      "link": "#",
+      "github": "#"
+    }
+  ]
+};
