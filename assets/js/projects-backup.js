@@ -5,26 +5,6 @@ class ProjectManager {
         this.currentFilter = 'all';
         this.projectContainer = null;
         this.filterButtons = null;
-        // Pagination properties
-        this.itemsPerPage = this.getItemsPerPage(); // Responsive items per page
-        this.currentPage = 1;
-        this.displayedProjects = [];
-        
-        // Listen for window resize to adjust items per page
-        window.addEventListener('resize', () => {
-            this.itemsPerPage = this.getItemsPerPage();
-        });
-    }
-
-    getItemsPerPage() {
-        // Responsive items per page based on screen size
-        if (window.innerWidth >= 1024) {
-            return 6; // Desktop: 3 columns × 2 rows
-        } else if (window.innerWidth >= 768) {
-            return 4; // Tablet: 2 columns × 2 rows
-        } else {
-            return 3; // Mobile: 1 column × 3 rows
-        }
     }
 
     async loadProjects() {
@@ -169,8 +149,8 @@ class ProjectManager {
         `;
     }
 
-    renderProjects(filter = 'all', loadMore = false) {
-        console.log('Rendering projects with filter:', filter, 'loadMore:', loadMore);
+    renderProjects(filter = 'all') {
+        console.log('Rendering projects with filter:', filter);
         
         if (!this.projectContainer) {
             this.projectContainer = document.querySelector('.project-container');
@@ -179,13 +159,6 @@ class ProjectManager {
         if (!this.projectContainer) {
             console.error('Project container not found during render!');
             return;
-        }
-
-        // Reset pagination when filter changes
-        if (this.currentFilter !== filter) {
-            this.currentFilter = filter;
-            this.currentPage = 1;
-            this.displayedProjects = [];
         }
 
         const filteredProjects = filter === 'all' 
@@ -201,41 +174,15 @@ class ProjectManager {
                     <p class="text-gray-600">No projects found for this category.</p>
                 </div>
             `;
-            this.hideLoadMoreButton();
             return;
         }
 
-        // Calculate projects to show
-        const startIndex = loadMore ? this.displayedProjects.length : 0;
-        const endIndex = startIndex + this.itemsPerPage;
-        const projectsToShow = filteredProjects.slice(startIndex, endIndex);
-
-        if (loadMore) {
-            // Append new projects to existing ones
-            this.displayedProjects = [...this.displayedProjects, ...projectsToShow];
-            const newProjectsHtml = projectsToShow.map(project => this.renderProjectCard(project)).join('');
-            
-            // Remove existing load more button if present
-            this.removeLoadMoreButton();
-            
-            // Add new projects
-            this.projectContainer.insertAdjacentHTML('beforeend', newProjectsHtml);
-        } else {
-            // Replace all projects
-            this.displayedProjects = projectsToShow;
-            this.projectContainer.innerHTML = this.displayedProjects.map(project => 
-                this.renderProjectCard(project)
-            ).join('');
-        }
-
-        // Show/hide load more button
-        this.updateLoadMoreButton(filteredProjects.length);
-        
-        // Update project counter
-        this.updateProjectCounter(filteredProjects.length);
+        this.projectContainer.innerHTML = filteredProjects.map(project => 
+            this.renderProjectCard(project)
+        ).join('');
 
         // Update project items reference for filtering
-        this.updateProjectItems(loadMore);
+        this.updateProjectItems();
         
         // Trigger scroll animation for newly added elements
         setTimeout(() => {
@@ -245,16 +192,11 @@ class ProjectManager {
         }, 200);
     }
 
-    updateProjectItems(loadMore = false) {
+    updateProjectItems() {
         const projectItems = document.querySelectorAll('.project-item');
         
         // Add hover effects and animations
-        const startIndex = loadMore ? projectItems.length - this.itemsPerPage : 0;
-        const itemsToAnimate = loadMore ? 
-            Array.from(projectItems).slice(startIndex) : 
-            Array.from(projectItems);
-        
-        itemsToAnimate.forEach((item, index) => {
+        projectItems.forEach((item, index) => {
             item.style.opacity = '0';
             item.style.transform = 'translateY(30px)';
             
@@ -267,147 +209,6 @@ class ProjectManager {
                 item.classList.add('visible');
             }, index * 150);
         });
-    }
-
-    updateLoadMoreButton(totalProjects) {
-        const hasMoreProjects = this.displayedProjects.length < totalProjects;
-        
-        if (hasMoreProjects) {
-            this.showLoadMoreButton(totalProjects - this.displayedProjects.length);
-        } else {
-            this.hideLoadMoreButton();
-        }
-    }
-
-    showLoadMoreButton(remainingCount) {
-        // Remove existing button first
-        this.removeLoadMoreButton();
-        
-        const loadMoreHtml = `
-            <div class="col-span-full flex flex-col items-center py-8 load-more-section">
-                <div class="text-center mb-6">
-                    <p class="text-gray-600 mb-2">
-                        <span class="font-semibold text-primary">${remainingCount}</span> more amazing projects available
-                    </p>
-                    <div class="flex items-center justify-center space-x-2 text-gray-400">
-                        <div class="w-8 h-px bg-gray-300"></div>
-                        <i class="fas fa-chevron-down text-sm animate-bounce"></i>
-                        <div class="w-8 h-px bg-gray-300"></div>
-                    </div>
-                </div>
-                <button 
-                    onclick="projectsManager.loadMoreProjects()" 
-                    class="load-more-btn px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center space-x-2 group">
-                    <span>View More Projects</span>
-                    <i class="fas fa-plus-circle group-hover:rotate-90 transition-transform duration-300"></i>
-                </button>
-                <p class="text-xs text-gray-400 mt-3 flex items-center">
-                    <i class="fas fa-info-circle mr-1"></i>
-                    Click to load ${Math.min(this.itemsPerPage, remainingCount)} more projects
-                </p>
-            </div>
-        `;
-        
-        this.projectContainer.insertAdjacentHTML('beforeend', loadMoreHtml);
-    }
-
-    hideLoadMoreButton() {
-        this.removeLoadMoreButton();
-        
-        // Show completion message
-        const completionHtml = `
-            <div class="col-span-full text-center py-6 completion-section">
-                <div class="text-center">
-                    <i class="fas fa-check-circle text-green-500 text-2xl mb-3"></i>
-                    <p class="text-gray-600 font-medium mb-2">You've seen all projects in this category!</p>
-                    <div class="flex items-center justify-center space-x-2 text-gray-400">
-                        <div class="w-8 h-px bg-gray-300"></div>
-                        <i class="fas fa-star text-sm text-yellow-400"></i>
-                        <div class="w-8 h-px bg-gray-300"></div>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        this.projectContainer.insertAdjacentHTML('beforeend', completionHtml);
-    }
-
-    removeLoadMoreButton() {
-        const existingButton = this.projectContainer.querySelector('.load-more-section');
-        const existingCompletion = this.projectContainer.querySelector('.completion-section');
-        
-        if (existingButton) {
-            existingButton.remove();
-        }
-        
-        if (existingCompletion) {
-            existingCompletion.remove();
-        }
-    }
-
-    updateProjectCounter(totalProjects) {
-        // Update project section subtitle with current count
-        const projectSection = document.querySelector('#projects header p');
-        if (projectSection) {
-            const displayedCount = this.displayedProjects.length;
-            const categoryName = this.currentFilter === 'all' ? 'all categories' : 
-                this.currentFilter === 'mobile' ? 'mobile apps' :
-                this.currentFilter === 'web' ? 'web development' :
-                this.currentFilter === 'design' ? 'UI/UX designs' : this.currentFilter;
-            
-            projectSection.innerHTML = `
-                Showing <span class="font-semibold text-primary">${displayedCount}</span> 
-                of <span class="font-semibold">${totalProjects}</span> projects in ${categoryName}. 
-                Each project showcases modern technologies and innovative solutions.
-            `;
-        }
-    }
-
-    loadMoreProjects() {
-        console.log('🔄 Loading more projects...');
-        
-        // Add loading state to button
-        const loadMoreBtn = document.querySelector('.load-more-btn');
-        if (loadMoreBtn) {
-            const originalText = loadMoreBtn.innerHTML;
-            loadMoreBtn.innerHTML = `
-                <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Loading...</span>
-                </div>
-            `;
-            loadMoreBtn.disabled = true;
-            
-            // Simulate loading delay for better UX
-            setTimeout(() => {
-                this.currentPage++;
-                this.renderProjects(this.currentFilter, true);
-                
-                // Scroll to new content smoothly
-                setTimeout(() => {
-                    const allItems = document.querySelectorAll('.project-item');
-                    const newItemIndex = Math.max(0, allItems.length - this.itemsPerPage);
-                    
-                    if (allItems[newItemIndex]) {
-                        // Add a subtle highlight effect to new items
-                        for (let i = newItemIndex; i < allItems.length; i++) {
-                            allItems[i].style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.3)';
-                            setTimeout(() => {
-                                allItems[i].style.boxShadow = '';
-                                allItems[i].style.transition = 'box-shadow 0.5s ease-out';
-                            }, 2000);
-                        }
-                        
-                        // Scroll to first new item
-                        allItems[newItemIndex].scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'center',
-                            inline: 'nearest'
-                        });
-                    }
-                }, 500);
-            }, 800);
-        }
     }
 
     setupFilterButtons() {
@@ -424,10 +225,9 @@ class ProjectManager {
                 button.classList.remove('bg-gray-200', 'text-dark');
                 button.classList.add('gradient-bg', 'text-white');
                 
-                // Reset pagination and filter projects
+                // Filter projects
                 const filterValue = button.getAttribute('data-filter');
-                this.currentPage = 1;
-                this.displayedProjects = [];
+                this.currentFilter = filterValue;
                 this.renderProjects(filterValue);
             });
         });
