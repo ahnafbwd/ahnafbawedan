@@ -1,0 +1,24 @@
+# Robots.txt for Ahnaf Bawedan Portfolio
+# Allow all web crawlers
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://ahnafbwd.github.io/ahnafbawedan/sitemap.xml
+
+# Crawl-delay for better server performance
+Crawl-delay: 1
+
+# Disallow specific paths if needed (currently none)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow important assets
+Allow: /assets/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.jpg
+Allow: /*.png
+Allow: /*.gif
+Allow: /*.svg

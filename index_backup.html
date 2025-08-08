@@ -2663,143 +2663,8 @@
         
         // Initialize project manager
         document.addEventListener('DOMContentLoaded', () => {
-            projectsManager.init();
-            
-            // Add admin tools if user has admin session
-            addAdminTools();
+            projectManager.init();
         });
-        
-        // Admin tools for portfolio management
-        function addAdminTools() {
-            // Check if user has admin session
-            const session = localStorage.getItem('portfolio_session');
-            if (!session) return;
-            
-            try {
-                const sessionData = JSON.parse(session);
-                const now = new Date();
-                const expires = new Date(sessionData.expires);
-                
-                if (now >= expires) return; // Session expired
-                
-                // Add admin toolbar
-                const adminToolbar = document.createElement('div');
-                adminToolbar.id = 'admin-toolbar';
-                adminToolbar.className = 'fixed bottom-4 left-4 bg-gray-800 text-white p-3 rounded-lg shadow-lg z-50 hidden';
-                adminToolbar.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <span class="text-sm font-medium">Admin Tools</span>
-                        <button onclick="refreshPortfolioProjects()" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-xs transition">
-                            Refresh Projects
-                        </button>
-                        <a href="project.html" class="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-xs transition">
-                            Manage
-                        </a>
-                        <button onclick="toggleAdminToolbar()" class="text-gray-400 hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </div>
-                `;
-                
-                // Add floating admin button
-                const adminButton = document.createElement('button');
-                adminButton.id = 'admin-button';
-                adminButton.className = 'fixed bottom-4 left-4 bg-gray-800 text-white p-3 rounded-full shadow-lg z-50 hover:bg-gray-700 transition';
-                adminButton.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
-                    </svg>
-                `;
-                adminButton.onclick = toggleAdminToolbar;
-                
-                document.body.appendChild(adminToolbar);
-                document.body.appendChild(adminButton);
-                
-                console.log('✅ Admin tools added for user:', sessionData.username);
-                
-            } catch (error) {
-                console.log('Error loading admin tools:', error.message);
-            }
-        }
-        
-        // Toggle admin toolbar visibility
-        function toggleAdminToolbar() {
-            const toolbar = document.getElementById('admin-toolbar');
-            const button = document.getElementById('admin-button');
-            
-            if (toolbar && button) {
-                const isHidden = toolbar.classList.contains('hidden');
-                
-                if (isHidden) {
-                    toolbar.classList.remove('hidden');
-                    button.style.display = 'none';
-                } else {
-                    toolbar.classList.add('hidden');
-                    button.style.display = 'block';
-                }
-            }
-        }
-        
-        // Refresh portfolio projects function
-        async function refreshPortfolioProjects() {
-            console.log('🔄 Refreshing portfolio projects...');
-            
-            // Show loading indicator
-            const refreshBtn = event.target;
-            const originalText = refreshBtn.textContent;
-            refreshBtn.textContent = 'Refreshing...';
-            refreshBtn.disabled = true;
-            
-            try {
-                if (window.projectsManager && typeof window.projectsManager.refreshProjects === 'function') {
-                    await window.projectsManager.refreshProjects();
-                    
-                    // Show success notification
-                    showRefreshNotification('Projects refreshed successfully!', 'success');
-                } else {
-                    throw new Error('Project manager not available');
-                }
-            } catch (error) {
-                console.error('Error refreshing projects:', error);
-                showRefreshNotification('Failed to refresh projects', 'error');
-            } finally {
-                // Restore button
-                refreshBtn.textContent = originalText;
-                refreshBtn.disabled = false;
-            }
-        }
-        
-        // Show refresh notification
-        function showRefreshNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = `fixed top-4 right-4 ${type === 'success' ? 'bg-green-600' : 'bg-red-600'} text-white px-4 py-3 rounded-lg shadow-lg z-50 max-w-sm`;
-            notification.innerHTML = `
-                <div class="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        ${type === 'success' 
-                            ? '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />'
-                            : '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />'
-                        }
-                    </svg>
-                    <span class="text-sm">${message}</span>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // Auto-remove after 3 seconds
-            setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.remove();
-                }
-            }, 3000);
-        }
-        
-        // Make functions globally available
-        window.refreshPortfolioProjects = refreshPortfolioProjects;
-        window.toggleAdminToolbar = toggleAdminToolbar;
         
         // Form submission with multiple email services
         const contactForm = document.getElementById('contact-form');
@@ -3138,6 +3003,154 @@
         window.addEventListener('scroll', animateOnScroll);
     </script>
 
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <header class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="text-gradient">Touch</span></h2>
+                <div class="w-24 h-1 gradient-bg rounded-full mx-auto mb-4" aria-hidden="true"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Ready to start your next mobile or web project? Let's discuss how I can help bring your ideas to life with modern technology and innovative solutions.</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Contact Information -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-primary text-xl mr-4" aria-hidden="true"></i>
+                            <div>
+                                <p class="font-semibold">Email</p>
+                                <a href="mailto:ahnafbawedan@gmail.com" class="text-gray-600 hover:text-primary transition">ahnafbawedan@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-primary text-xl mr-4" aria-hidden="true"></i>
+                            <div>
+                                <p class="font-semibold">Phone</p>
+                                <a href="tel:+6285123456789" class="text-gray-600 hover:text-primary transition">+62 851-2345-6789</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-primary text-xl mr-4" aria-hidden="true"></i>
+                            <div>
+                                <p class="font-semibold">Location</p>
+                                <p class="text-gray-600">Jember, East Java, Indonesia</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Media Links -->
+                    <div class="mt-8">
+                        <h4 class="text-lg font-bold mb-4">Follow Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/ahnafbwd" target="_blank" rel="noopener noreferrer" class="social-icon w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Follow on GitHub">
+                                <i class="fab fa-github text-lg" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/ahnafbawedan" target="_blank" rel="noopener noreferrer" class="social-icon w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Connect on LinkedIn">
+                                <i class="fab fa-linkedin-in text-lg" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://instagram.com/ahnafbwd" target="_blank" rel="noopener noreferrer" class="social-icon w-12 h-12 bg-pink-500 text-white rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Follow on Instagram">
+                                <i class="fab fa-instagram text-lg" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Send Message</h3>
+                    <form action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="your.email@example.com">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Project Discussion">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-8 py-3 gradient-bg text-white font-semibold rounded-lg hover:shadow-lg transition">
+                            Send Message
+                            <i class="fas fa-paper-plane ml-2" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-12" role="contentinfo">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <img src="assets/logo/logo.png" alt="Ahnaf Bawedan Logo" class="logo-image w-10 h-10 mr-3 rounded-lg shadow-sm">
+                        <span class="text-xl font-bold">Ahnaf Bawedan</span>
+                    </div>
+                    <p class="text-white/80 mb-4 max-w-md">
+                        Passionate Mobile Developer specializing in Flutter and Kotlin. Creating innovative mobile applications and modern web solutions for businesses worldwide.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/ahnafbwd" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white transition" aria-label="GitHub Profile">
+                            <i class="fab fa-github text-xl" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/ahnafbawedan" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white transition" aria-label="LinkedIn Profile">
+                            <i class="fab fa-linkedin-in text-xl" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://instagram.com/ahnafbwd" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white transition" aria-label="Instagram Profile">
+                            <i class="fab fa-instagram text-xl" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <nav class="space-y-2" role="navigation" aria-label="Footer navigation">
+                        <a href="#home" class="block text-white/80 hover:text-white transition">Home</a>
+                        <a href="#about" class="block text-white/80 hover:text-white transition">About</a>
+                        <a href="#projects" class="block text-white/80 hover:text-white transition">Projects</a>
+                        <a href="#experience" class="block text-white/80 hover:text-white transition">Experience</a>
+                        <a href="#contact" class="block text-white/80 hover:text-white transition">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2" role="list">
+                        <li class="text-white/80">Mobile App Development</li>
+                        <li class="text-white/80">Flutter Development</li>
+                        <li class="text-white/80">Android Development</li>
+                        <li class="text-white/80">UI/UX Design</li>
+                        <li class="text-white/80">Web Development</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-white/20 my-8">
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-white/80">
+                <p>&copy; 2024 Ahnaf Bawedan. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="/privacy-policy" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="/terms-of-service" class="hover:text-white transition">Terms of Service</a>
+                    <a href="/sitemap.xml" class="hover:text-white transition">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </main>
 
     <!-- Schema Markup for Organization -->
     <script type="application/ld+json">

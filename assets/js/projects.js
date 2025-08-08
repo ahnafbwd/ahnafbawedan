@@ -9,31 +9,45 @@ class ProjectManager {
 
     async loadProjects() {
         try {
-            console.log('Loading projects...');
+            console.log('🔄 Loading projects...');
             
-            // Try to use embedded data first (for local file access)
+            // Use the new loadProjectData function from projects-data.js
+            if (window.loadProjectData) {
+                const data = window.loadProjectData();
+                if (data && data.projects) {
+                    this.projects = data.projects;
+                    console.log('✅ Projects loaded successfully:', this.projects.length, 'projects');
+                    return this.projects;
+                }
+            }
+            
+            // Fallback: try embedded data directly
             if (window.projectData && window.projectData.projects) {
-                console.log('Using embedded project data');
+                console.log('📋 Using embedded project data');
                 this.projects = window.projectData.projects;
-                console.log('Projects loaded successfully from embedded data:', this.projects);
+                console.log('✅ Projects loaded from embedded data:', this.projects.length, 'projects');
                 return this.projects;
             }
             
-            // Fallback to fetch if embedded data is not available
-            console.log('Loading projects from: assets/data/projects.json');
-            const response = await fetch('assets/data/projects.json');
+            // Last resort: fetch from JSON file
+            console.log('📁 Loading projects from: assets/data/projects.json');
+            const response = await fetch('assets/data/projects.json?' + Date.now());
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             
             const data = await response.json();
-            console.log('Projects loaded successfully from JSON:', data);
+            console.log('✅ Projects loaded from JSON file:', data.projects.length, 'projects');
             
             this.projects = data.projects;
+            
+            // Update window.projectData for consistency
+            window.projectData = data;
+            
             return this.projects;
         } catch (error) {
-            console.error('Error loading projects:', error);
+            console.error('❌ Error loading projects:', error);
             
             // Show error message to user
             if (this.projectContainer) {
@@ -44,7 +58,7 @@ class ProjectManager {
                         </div>
                         <h3 class="text-xl font-bold mb-2">Failed to Load Projects</h3>
                         <p class="text-gray-600">Please check your internet connection and try again.</p>
-                        <button onclick="projectManager.init()" class="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition">
+                        <button onclick="window.projectsManager.init()" class="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition">
                             Retry
                         </button>
                     </div>
@@ -440,7 +454,27 @@ class ProjectManager {
             console.warn('No projects loaded');
         }
     }
+
+    // Add refresh function to reload data and re-render
+    async refreshProjects() {
+        console.log('🔄 Refreshing projects...');
+        
+        // Clear current data
+        this.projects = [];
+        
+        // Force reload from localStorage/JSON
+        if (window.loadProjectData) {
+            window.loadProjectData();
+        }
+        
+        // Reload and re-render
+        await this.loadProjects();
+        this.renderProjects(this.currentFilter);
+        
+        console.log('✅ Projects refreshed successfully');
+    }
 }
 
 // Initialize project manager
-const projectManager = new ProjectManager();
+const projectsManager = new ProjectManager();
+window.projectsManager = projectsManager; // Make it globally accessible

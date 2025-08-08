@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio CRUD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#4F46E5",
+              secondary: "#10B981",
+              dark: "#1F2937",
+              light: "#F9FAFB",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .slide-in {
+        animation: slideIn 0.3s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      .blur-bg {
+        backdrop-filter: blur(5px);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 font-sans min-h-screen">
+    <!-- Authentication Check -->
+    <div id="authLoader" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+        <p class="text-gray-600">Checking authentication...</p>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl" id="mainContent" style="display: none;">
+      <header class="mb-10">
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <h1 class="text-4xl font-bold text-dark mb-2">Portfolio Admin</h1>
+            <p class="text-gray-600">Manage your creative works and projects</p>
+          </div>
+          <div class="text-right">
+            <p class="text-sm text-gray-500 mb-2">Welcome, <span id="currentUser" class="font-medium text-primary"></span></p>
+            <button id="logoutBtn" class="text-sm text-red-600 hover:text-red-800 underline">Logout</button>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex flex-wrap gap-2">
+            <button
+              id="importBtn"
+              title="Import projects from JSON file"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 text-sm rounded-lg flex items-center gap-2 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+              Import
+            </button>
+            <button
+              id="reloadBtn"
+              title="Reload data from embedded projects or JSON file"
+              class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 text-sm rounded-lg flex items-center gap-2 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+              </svg>
+              Reload
+            </button>
+            <button
+              id="addBtn"
+              class="bg-primary hover:bg-indigo-700 text-white px-3 py-2 text-sm rounded-lg flex items-center gap-2 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Add Project
+            </button>
+            <button
+              id="exportBtn"
+              title="Export current projects to JSON file for backup or deployment"
+              class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 text-sm rounded-lg flex items-center gap-2 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+              Export JSON
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Data Sync Info Panel -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <div class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <div class="flex-1">
+            <h3 class="text-sm font-medium text-blue-800 mb-1">Data Synchronization</h3>
+            <p class="text-sm text-blue-700 mb-2">
+              Changes are saved locally. To sync with GitHub Pages or external systems:
+            </p>
+            <ol class="text-sm text-blue-600 list-decimal list-inside space-y-1">
+              <li>Use <strong>"Export JSON"</strong> to download your current projects</li>
+              <li>Replace <code>assets/data/projects.json</code> with the downloaded file</li>
+              <li>Commit and push to GitHub to update your live portfolio</li>
+              <li>Use <strong>"Reload"</strong> to sync with the updated file</li>
+            </ol>
+          </div>
+          <button id="closeInfoPanel" class="text-blue-400 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="portfolioGrid"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Portfolio items will be rendered here -->
+        <div class="text-center py-10 text-gray-400" id="emptyState">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12 mx-auto mb-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <p class="text-lg">No projects yet. Add your first project!</p>
+        </div>
+        
+        <div class="text-center py-10 text-blue-500" id="loadingState" style="display: none;">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-3"></div>
+          <p class="text-lg">Loading projects...</p>
+        </div>
+      </div>
+
+      <!-- Modal for Add/Edit -->
+      <div
+        id="portfolioModal"
+        class="fixed inset-0 z-50 hidden transition-opacity duration-300"
+      >
+        <div class="absolute inset-0 bg-black bg-opacity-50 blur-bg"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+          <div
+            class="bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto slide-in"
+          >
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-6">
+                <h3 id="modalTitle" class="text-xl font-semibold text-dark">
+                  Add New Project
+                </h3>
+                <button
+                  id="closeModal"
+                  class="text-gray-400 hover:text-gray-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <form id="portfolioForm" class="space-y-4">
+                <input type="hidden" id="projectId" />
+
+                <div class="space-y-1">
+                  <label
+                    for="title"
+                    class="block text-sm font-medium text-gray-700"
+                    >Project Title</label
+                  >
+                  <input
+                    type="text"
+                    id="title"
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                <div class="space-y-1">
+                  <label
+                    for="category"
+                    class="block text-sm font-medium text-gray-700"
+                    >Category</label
+                  >
+                  <select
+                    id="category"
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Select a category</option>
+                    <option value="mobile">Mobile App</option>
+                    <option value="web">Web Application</option>
+                    <option value="design">UI/UX Design</option>
+                  </select>
+                </div>
+
+                <div class="space-y-1">
+                  <label
+                    for="description"
+                    class="block text-sm font-medium text-gray-700"
+                    >Description</label
+                  >
+                  <textarea
+                    id="description"
+                    rows="3"
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  ></textarea>
+                </div>
+
+                <div class="space-y-1">
+                  <label
+                    for="technologies"
+                    class="block text-sm font-medium text-gray-700"
+                    >Technologies (comma-separated)</label
+                  >
+                  <input
+                    type="text"
+                    id="technologies"
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="e.g., Flutter, Firebase, REST API"
+                  />
+                </div>
+
+                <div class="space-y-1">
+                  <label
+                    for="features"
+                    class="block text-sm font-medium text-gray-700"
+                    >Features (one per line)</label
+                  >
+                  <textarea
+                    id="features"
+                    rows="3"
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Feature 1&#10;Feature 2&#10;Feature 3"
+                  ></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="space-y-1">
+                    <label
+                      for="status"
+                      class="block text-sm font-medium text-gray-700"
+                      >Status</label
+                    >
+                    <select
+                      id="status"
+                      required
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      <option value="">Select status</option>
+                      <option value="Completed">Completed</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="On Hold">On Hold</option>
+                    </select>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label
+                      for="year"
+                      class="block text-sm font-medium text-gray-700"
+                      >Year</label
+                    >
+                    <input
+                      type="number"
+                      id="year"
+                      required
+                      min="2020"
+                      max="2030"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="2024"
+                    />
+                  </div>
+                </div>
+
+                <div class="space-y-1">
+                  <label
+                    for="client"
+                    class="block text-sm font-medium text-gray-700"
+                    >Client</label
+                  >
+                  <input
+                    type="text"
+                    id="client"
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Client name"
+                  />
+                </div>
+
+                <div class="space-y-1">
+                  <label
+                    for="image"
+                    class="block text-sm font-medium text-gray-700"
+                    >Image Path</label
+                  >
+                  <input
+                    type="text"
+                    id="image"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="assets/image/project.png"
+                  />
+                  <p class="text-xs text-gray-500">
+                    Path to project image (leave blank for placeholder)
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="space-y-1">
+                    <label
+                      for="link"
+                      class="block text-sm font-medium text-gray-700"
+                      >Project Link</label
+                    >
+                    <input
+                      type="url"
+                      id="link"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="https://"
+                    />
+                  </div>
+
+                  <div class="space-y-1">
+                    <label
+                      for="github"
+                      class="block text-sm font-medium text-gray-700"
+                      >GitHub Link</label
+                    >
+                    <input
+                      type="url"
+                      id="github"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="https://github.com/"
+                    />
+                  </div>
+                </div>
+
+                <div class="pt-4 flex justify-end space-x-3">
+                  <button
+                    type="button"
+                    id="cancelBtn"
+                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    class="px-4 py-2 bg-primary text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  >
+                    Save Project
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation Modal -->
+      <div
+        id="confirmModal"
+        class="fixed inset-0 z-50 hidden transition-opacity duration-300"
+      >
+        <div class="absolute inset-0 bg-black bg-opacity-50 blur-bg"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+          <div
+            class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 fade-in"
+          >
+            <h3 class="text-lg font-semibold text-dark mb-4">
+              Confirm Deletion
+            </h3>
+            <p class="text-gray-600 mb-6">
+              Are you sure you want to delete this project? This action cannot
+              be undone.
+            </p>
+            <div class="flex justify-end space-x-3">
+              <button
+                id="cancelDeleteBtn"
+                class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                id="confirmDeleteBtn"
+                class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+
+    <!-- Authentication Check Script -->
+    <script>
+      // Authentication Check - Must be at the top
+      (function() {
+        // Import SimpleAuth from auth.html (we'll define it here as well)
+        class SimpleAuth {
+          static isAuthenticated() {
+            const session = localStorage.getItem('portfolio_session');
+            if (!session) return false;
+
+            try {
+              const sessionData = JSON.parse(session);
+              const now = new Date();
+              const expires = new Date(sessionData.expires);
+              return now < expires;
+            } catch (e) {
+              localStorage.removeItem('portfolio_session');
+              return false;
+            }
+          }
+
+          static logout() {
+            localStorage.removeItem('portfolio_session');
+            window.location.href = 'auth.html';
+          }
+
+          static getCurrentUser() {
+            const session = localStorage.getItem('portfolio_session');
+            if (!session) return null;
+
+            try {
+              const sessionData = JSON.parse(session);
+              return sessionData.username;
+            } catch (e) {
+              return null;
+            }
+          }
+        }
+
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+          const authLoader = document.getElementById('authLoader');
+          const mainContent = document.getElementById('mainContent');
+          const currentUserSpan = document.getElementById('currentUser');
+          const logoutBtn = document.getElementById('logoutBtn');
+
+          // Simulate loading time
+          setTimeout(() => {
+            if (!SimpleAuth.isAuthenticated()) {
+              // Not authenticated, redirect to login
+              window.location.href = 'auth.html';
+              return;
+            }
+
+            // Authenticated, show main content
+            const currentUser = SimpleAuth.getCurrentUser();
+            if (currentUserSpan) {
+              currentUserSpan.textContent = currentUser || 'Admin';
+            }
+
+            // Setup logout button
+            if (logoutBtn) {
+              logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Are you sure you want to logout?')) {
+                  SimpleAuth.logout();
+                }
+              });
+            }
+
+            // Hide loader and show content
+            authLoader.style.display = 'none';
+            mainContent.style.display = 'block';
+
+            // Initialize the portfolio app after authentication check
+            initializeApp();
+          }, 800);
+        });
+
+        // Make SimpleAuth available globally
+        window.SimpleAuth = SimpleAuth;
+      })();
+    </script>
+
+    <script>
+      // Embedded project data as fallback for local file access
+      window.projectData = {
+        "projects": [
+          {
+            "id": 1,
+            "title": "Saysco",
+            "category": "mobile",
+            "categoryLabel": "Mobile App",
+            "image": "assets/image/saysco.png",
+            "technologies": ["Kotlin", "Machine Learning", "Node JS"],
+            "description": "Aplikasi Essay Scoring dengan fitur canggih untuk penilaian otomatis dan analisis data.",
+            "features": [
+              "Real-time essay scoring",
+              "Automated feedback generation",
+              "Multi-language support",
+              "Comprehensive analytics dashboard"
+            ],
+            "status": "Completed",
+            "year": "2024",
+            "client": "Capstone Bangkit Academy Batch 2 2023",
+            "link": "#",
+            "github": "http://github.com/saysco"
+          },
+          {
+            "id": 2,
+            "title": "Dapur Bunda Catering",
+            "category": "mobile",
+            "categoryLabel": "Mobile App",
+            "image": "assets/image/dapurbunda.png",
+            "technologies": ["Flutter", "Firebase", "REST API", "Dart"],
+            "description": "Full-featured catering app with menu browsing, order management, and real-time tracking for local catering business.",
+            "features": [
+              "Menu browsing and filtering",
+              "Real-time order tracking",
+              "Payment integration",
+              "Customer reviews and ratings"
+            ],
+            "status": "Completed",
+            "year": "2024",
+            "client": "Dapur Bunda",
+            "link": "#",
+            "github": "#"
+          },
+          {
+            "id": 3,
+            "title": "DiKantin Food Ordering",
+            "category": "mobile",
+            "categoryLabel": "Mobile App",
+            "image": "assets/image/dikantin.jpg",
+            "technologies": ["Flutter", "Firebase", "Dart", "Cloud Functions"],
+            "description": "Mobile food ordering application for campus canteen with real-time menu updates and order tracking.",
+            "features": [
+              "Real-time menu updates",
+              "Order queue management",
+              "Digital payment system",
+              "Nutrition information display"
+            ],
+            "status": "Completed",
+            "year": "2024",
+            "client": "Campus Canteen",
+            "link": "#",
+            "github": "#"
+          },
+          {
+            "id": 4,
+            "title": "Gassin Gas Delivery",
+            "category": "mobile",
+            "categoryLabel": "Mobile App",
+            "image": "assets/image/gassin.jpg",
+            "technologies": ["Flutter", "Firebase", "Google Maps API", "Payment Gateway"],
+            "description": "Gas delivery application with real-time tracking, online payment, and location-based services for gas cylinder orders.",
+            "features": [
+              "Real-time delivery tracking",
+              "GPS location services",
+              "Multiple payment methods",
+              "Order scheduling system"
+            ],
+            "status": "Completed",
+            "year": "2023",
+            "client": "Rumah Gas",
+            "link": "#",
+            "github": "#"
+          },
+          {
+            "id": 5,
+            "title": "Saysco Mobile App",
+            "category": "mobile",
+            "categoryLabel": "Mobile App",
+            "image": "assets/image/saysco.png",
+            "technologies": ["Flutter", "Firebase", "Dart", "REST API"],
+            "description": "Modern mobile application with intuitive interface and advanced features for enhanced user experience.",
+            "features": [
+              "Intuitive user interface",
+              "Advanced search functionality",
+              "Real-time notifications",
+              "Offline data synchronization"
+            ],
+            "status": "Completed",
+            "year": "2024",
+            "client": "Saysco Company",
+            "link": "#",
+            "github": "#"
+          },
+          {
+            "id": 6,
+            "title": "Caricuan UI/UX Design",
+            "category": "design",
+            "categoryLabel": "UI/UX Design",
+            "image": "assets/image/caricuan.png",
+            "technologies": ["Figma", "Adobe XD", "Prototyping", "User Research"],
+            "description": "Comprehensive UI/UX design project with modern interface design and user experience optimization.",
+            "features": [
+              "User research and personas",
+              "Wireframing and prototyping",
+              "Responsive design system",
+              "Usability testing"
+            ],
+            "status": "Completed",
+            "year": "2024",
+            "client": "Caricuan Platform",
+            "link": "#",
+            "github": "#"
+          },
+          {
+            "id": 7,
+            "title": "Mie Custom Order",
+            "category": "mobile",
+            "categoryLabel": "Mobile App",
+            "image": "assets/image/miecustom.png",
+            "technologies": ["Flutter", "Firebase", "Payment Gateway", "Push Notifications"],
+            "description": "Custom noodle ordering app allowing customers to customize their orders with various toppings and preferences.",
+            "features": [
+              "Custom order builder",
+              "Real-time price calculation",
+              "Payment integration",
+              "Order status notifications"
+            ],
+            "status": "Completed",
+            "year": "2024",
+            "client": "Mie Custom Restaurant",
+            "link": "#",
+            "github": "#"
+          },
+          {
+            "id": 8,
+            "title": "Mighty Indonesia",
+            "category": "web",
+            "categoryLabel": "Web Application",
+            "image": "assets/image/mighty.jpg",
+            "technologies": ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+            "description": "Business management web platform for Mighty Indonesia with features for inventory, sales tracking, and customer management.",
+            "features": [
+              "Inventory management",
+              "Sales tracking and analytics",
+              "Customer relationship management",
+              "Financial reporting"
+            ],
+            "status": "Completed",
+            "year": "2023",
+            "client": "Mighty Indonesia",
+            "link": "#",
+            "github": "#"
+          },
+          {
+            "id": 9,
+            "title": "Kaba Arabic Learning",
+            "category": "mobile",
+            "categoryLabel": "Mobile App",
+            "image": "assets/image/kaba.jpg",
+            "technologies": ["Flutter", "Firebase", "Audio Processing", "Progress Tracking"],
+            "description": "Interactive Arabic learning application with pronunciation guide, progress tracking, and gamified learning experience.",
+            "features": [
+              "Interactive lessons",
+              "Pronunciation guide",
+              "Progress tracking",
+              "Gamified learning"
+            ],
+            "status": "Completed",
+            "year": "2024",
+            "client": "Kaba Arabic Course",
+            "link": "#",
+            "github": "#"
+          }
+        ]
+      };
+
+      // Portfolio Data Management
+      const PORTFOLIO_KEY = "portfolioItems";
+      const PROJECTS_JSON_PATH = "assets/data/projects.json";
+      let portfolioData = { projects: [] };
+      let currentEditId = null;
+
+      // Initialize the app
+      function initializeApp() {
+        console.log("Initializing Portfolio CRUD App...");
+        console.log("JSON Path:", PROJECTS_JSON_PATH);
+        loadPortfolioItems();
+        setupEventListeners();
+      }
+
+      // Load portfolio items from embedded data first, then JSON file, then localStorage as fallback
+      async function loadPortfolioItems() {
+        // Show loading state
+        showLoadingState();
+        
+        try {
+          // First priority: Use embedded data (for local file access)
+          if (window.projectData && window.projectData.projects) {
+            console.log('Using embedded project data');
+            portfolioData = window.projectData;
+            console.log("Data loaded from embedded data:", portfolioData);
+            localStorage.setItem(PORTFOLIO_KEY, JSON.stringify(portfolioData));
+            showNotification('Data loaded successfully!');
+          } else {
+            // Second priority: Try to load from JSON file
+            const response = await fetch(PROJECTS_JSON_PATH + '?t=' + Date.now());
+            if (response.ok) {
+              portfolioData = await response.json();
+              console.log("Data loaded from projects.json:", portfolioData);
+              localStorage.setItem(PORTFOLIO_KEY, JSON.stringify(portfolioData));
+              showNotification('Data loaded from projects.json successfully!');
+            } else {
+              throw new Error("JSON file not found, status: " + response.status);
+            }
+          }
+        } catch (error) {
+          console.log("Error loading from JSON:", error.message);
+          console.log("Loading from localStorage as fallback");
+          // Third priority: Fallback to localStorage
+          const items = localStorage.getItem(PORTFOLIO_KEY);
+          if (items) {
+            try {
+              portfolioData = JSON.parse(items);
+              if (!portfolioData.projects) {
+                // Convert old format to new format
+                portfolioData = { projects: Array.isArray(portfolioData) ? portfolioData : [] };
+              }
+              console.log("Data loaded from localStorage:", portfolioData);
+              showNotification('Data loaded from localStorage (offline mode)', 'warning');
+            } catch (parseError) {
+              console.log("Error parsing localStorage data:", parseError.message);
+              portfolioData = { projects: [] };
+              showNotification('Error loading data, using empty portfolio', 'error');
+            }
+          } else {
+            console.log("No data found in localStorage, using empty array");
+            portfolioData = { projects: [] };
+            showNotification('No data found, starting with empty portfolio', 'warning');
+          }
+        }
+        
+        hideLoadingState();
+        renderPortfolioItems();
+        toggleEmptyState();
+      }
+
+      // Show loading state
+      function showLoadingState() {
+        loadingState.style.display = 'block';
+        emptyState.style.display = 'none';
+        portfolioGrid.innerHTML = '';
+      }
+
+      // Hide loading state
+      function hideLoadingState() {
+        loadingState.style.display = 'none';
+      }
+
+      // Save portfolio items to localStorage only
+      function savePortfolioItems() {
+        // Save to localStorage
+        localStorage.setItem(PORTFOLIO_KEY, JSON.stringify(portfolioData));
+        
+        toggleEmptyState();
+        
+        // Show notification about saving
+        showNotification('Changes saved to local storage successfully!');
+      }
+
+      // Download updated JSON file
+      function downloadUpdatedJSON() {
+        const dataStr = JSON.stringify(portfolioData, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'projects.json';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        // Show notification
+        showNotification('projects.json exported successfully! Replace the file in assets/data/ folder to sync with server.');
+      }
+
+      // DOM Elements
+      const portfolioGrid = document.getElementById("portfolioGrid");
+      const emptyState = document.getElementById("emptyState");
+      const loadingState = document.getElementById("loadingState");
+      const portfolioForm = document.getElementById("portfolioForm");
+      const modal = document.getElementById("portfolioModal");
+      const confirmModal = document.getElementById("confirmModal");
+      const modalTitle = document.getElementById("modalTitle");
+      const addBtn = document.getElementById("addBtn");
+      const closeModal = document.getElementById("closeModal");
+      const cancelBtn = document.getElementById("cancelBtn");
+      const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+      const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+
+      // Form fields
+      const projectIdInput = document.getElementById("projectId");
+      const titleInput = document.getElementById("title");
+      const categoryInput = document.getElementById("category");
+      const descriptionInput = document.getElementById("description");
+      const technologiesInput = document.getElementById("technologies");
+      const featuresInput = document.getElementById("features");
+      const statusInput = document.getElementById("status");
+      const yearInput = document.getElementById("year");
+      const clientInput = document.getElementById("client");
+      const imageInput = document.getElementById("image");
+      const linkInput = document.getElementById("link");
+      const githubInput = document.getElementById("github");
+
+      // Render portfolio items to the grid
+      function renderPortfolioItems() {
+        portfolioGrid.innerHTML = "";
+
+        console.log("Rendering portfolio items:", portfolioData.projects.length, "items");
+
+        if (portfolioData.projects && portfolioData.projects.length > 0) {
+          portfolioData.projects.forEach((item) => {
+            const portfolioItem = createPortfolioItemElement(item);
+            portfolioGrid.appendChild(portfolioItem);
+          });
+        } else {
+          console.log("No portfolio items to display");
+        }
+      }
+
+      // Create a portfolio item card element
+      function createPortfolioItemElement(item) {
+        const col = document.createElement("div");
+        col.className =
+          "bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 fade-in";
+
+        // Get category label
+        const categoryLabels = {
+          mobile: "Mobile App",
+          web: "Web Application", 
+          design: "UI/UX Design"
+        };
+        const categoryLabel = categoryLabels[item.category] || item.categoryLabel || item.category;
+
+        // Determine image to use (placeholder if not provided)
+        const imageUrl = item.image || 
+          `https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0b5b9074-995a-42fe-bd50-1aa93f7a063a.png`;
+
+        // Format technologies
+        const techList = Array.isArray(item.technologies) ? 
+          item.technologies.slice(0, 3).join(", ") : 
+          (item.technologies || "").split(",").slice(0, 3).join(", ");
+
+        col.innerHTML = `
+                <div class="h-48 overflow-hidden">
+                    <img src="${imageUrl}" alt="${item.title}" class="w-full h-full object-cover" 
+                         onerror="this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/20db23f2-a098-4609-b4a9-7d67d749e58a.png'">
+                </div>
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-dark">${item.title}</h3>
+                        <span class="px-2 py-1 text-xs rounded-full bg-secondary-100 text-secondary-800">${categoryLabel}</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2 line-clamp-2">${item.description}</p>
+                    <div class="mb-3">
+                        <p class="text-xs text-gray-500 mb-1">Technologies:</p>
+                        <p class="text-xs text-primary font-medium">${techList}</p>
+                    </div>
+                    <div class="flex justify-between items-center text-xs text-gray-500 mb-3">
+                        <span>Status: <span class="font-medium text-green-600">${item.status}</span></span>
+                        <span>Year: ${item.year}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button class="text-primary hover:text-indigo-700 text-sm font-medium edit-btn" data-id="${item.id}">Edit</button>
+                        <button class="text-red-600 hover:text-red-800 text-sm font-medium delete-btn" data-id="${item.id}">Delete</button>
+                    </div>
+                </div>
+                <div class="px-4 pb-4 flex gap-2">
+                    ${item.link && item.link !== "#" ? 
+                        `<a href="${item.link}" target="_blank" class="flex-1 px-3 py-2 bg-primary text-white text-center text-sm rounded hover:bg-indigo-700">View Project</a>` : 
+                        ''}
+                    ${item.github && item.github !== "#" ? 
+                        `<a href="${item.github}" target="_blank" class="flex-1 px-3 py-2 bg-gray-800 text-white text-center text-sm rounded hover:bg-gray-700">GitHub</a>` : 
+                        ''}
+                </div>
+            `;
+
+        return col;
+      }
+
+      // Toggle empty state visibility
+      function toggleEmptyState() {
+        const shouldShowEmpty = portfolioData.projects.length === 0;
+        emptyState.style.display = shouldShowEmpty ? "block" : "none";
+        console.log("Empty state visibility:", shouldShowEmpty ? "shown" : "hidden");
+      }
+
+      // Open modal for adding new project
+      function openAddModal() {
+        resetForm();
+        modalTitle.textContent = "Add New Project";
+        currentEditId = null;
+        modal.classList.remove("hidden");
+        setTimeout(() => modal.classList.add("opacity-100"), 10);
+      }
+
+      // Open modal for editing project
+      function openEditModal(id) {
+        const item = portfolioData.projects.find((item) => item.id == id);
+        if (!item) return;
+
+        currentEditId = id;
+        modalTitle.textContent = "Edit Project";
+
+        // Populate form
+        projectIdInput.value = item.id;
+        titleInput.value = item.title;
+        categoryInput.value = item.category;
+        descriptionInput.value = item.description;
+        technologiesInput.value = Array.isArray(item.technologies) ? 
+          item.technologies.join(", ") : (item.technologies || "");
+        featuresInput.value = Array.isArray(item.features) ? 
+          item.features.join("\n") : (item.features || "");
+        statusInput.value = item.status || "";
+        yearInput.value = item.year || "";
+        clientInput.value = item.client || "";
+        imageInput.value = item.image || "";
+        linkInput.value = item.link || "";
+        githubInput.value = item.github || "";
+
+        modal.classList.remove("hidden");
+        setTimeout(() => modal.classList.add("opacity-100"), 10);
+      }
+
+      // Reset form fields
+      function resetForm() {
+        portfolioForm.reset();
+      }
+
+      // Handle form submission
+      function handleFormSubmit(e) {
+        e.preventDefault();
+
+        // Get category label
+        const categoryLabels = {
+          mobile: "Mobile App",
+          web: "Web Application",
+          design: "UI/UX Design"
+        };
+
+        const projectData = {
+          id: currentEditId || Date.now(),
+          title: titleInput.value.trim(),
+          category: categoryInput.value,
+          categoryLabel: categoryLabels[categoryInput.value] || categoryInput.value,
+          image: imageInput.value.trim() || undefined,
+          technologies: technologiesInput.value.trim().split(",").map(tech => tech.trim()).filter(tech => tech),
+          description: descriptionInput.value.trim(),
+          features: featuresInput.value.trim().split("\n").map(feature => feature.trim()).filter(feature => feature),
+          status: statusInput.value,
+          year: yearInput.value,
+          client: clientInput.value.trim(),
+          link: linkInput.value.trim() || "#",
+          github: githubInput.value.trim() || "#"
+        };
+
+        if (currentEditId) {
+          // Update existing item
+          const index = portfolioData.projects.findIndex(
+            (item) => item.id == currentEditId
+          );
+          if (index !== -1) {
+            portfolioData.projects[index] = projectData;
+          }
+        } else {
+          // Add new item
+          portfolioData.projects.push(projectData);
+        }
+
+        savePortfolioItems();
+        renderPortfolioItems();
+        closeModalHandler();
+      }
+
+      // Open confirmation modal for delete
+      function openConfirmModal(id) {
+        currentEditId = id;
+        confirmModal.classList.remove("hidden");
+        setTimeout(() => confirmModal.classList.add("opacity-100"), 10);
+      }
+
+      // Handle delete confirmation
+      function handleDelete() {
+        portfolioData.projects = portfolioData.projects.filter(
+          (item) => item.id != currentEditId
+        );
+        savePortfolioItems();
+        renderPortfolioItems();
+        closeConfirmModal();
+      }
+
+      // Close modal
+      function closeModalHandler() {
+        modal.classList.remove("opacity-100");
+        setTimeout(() => modal.classList.add("hidden"), 300);
+      }
+
+      // Close confirmation modal
+      function closeConfirmModal() {
+        confirmModal.classList.remove("opacity-100");
+        setTimeout(() => confirmModal.classList.add("hidden"), 300);
+      }
+
+      // Function to export portfolio items to JSON
+      function exportToJson() {
+        downloadUpdatedJSON();
+      }
+
+      // Function to import JSON file
+      function importFromJson() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = async (event) => {
+          const file = event.target.files[0];
+          if (file) {
+            try {
+              const text = await file.text();
+              const importedData = JSON.parse(text);
+              
+              // Validate the structure
+              if (importedData.projects && Array.isArray(importedData.projects)) {
+                portfolioData = importedData;
+                savePortfolioItems();
+                renderPortfolioItems();
+                showNotification('JSON file imported successfully!');
+              } else {
+                throw new Error('Invalid JSON structure');
+              }
+            } catch (error) {
+              showNotification('Error importing JSON file: ' + error.message, 'error');
+            }
+          }
+        };
+        input.click();
+      }
+
+      // Function to reload data from projects.json
+      async function reloadFromJson() {
+        showLoadingState();
+        
+        try {
+          // First try embedded data
+          if (window.projectData && window.projectData.projects) {
+            portfolioData = window.projectData;
+            localStorage.setItem(PORTFOLIO_KEY, JSON.stringify(portfolioData));
+            hideLoadingState();
+            renderPortfolioItems();
+            toggleEmptyState();
+            showNotification('Data reloaded from embedded data successfully!');
+            console.log("Data reloaded from embedded data:", portfolioData);
+            return;
+          }
+          
+          // Then try JSON file
+          const response = await fetch(PROJECTS_JSON_PATH + '?t=' + Date.now()); // Add timestamp to prevent caching
+          if (response.ok) {
+            portfolioData = await response.json();
+            localStorage.setItem(PORTFOLIO_KEY, JSON.stringify(portfolioData));
+            hideLoadingState();
+            renderPortfolioItems();
+            toggleEmptyState();
+            showNotification('Data reloaded from projects.json successfully!');
+            console.log("Data reloaded from projects.json:", portfolioData);
+          } else {
+            throw new Error('Failed to load projects.json, status: ' + response.status);
+          }
+        } catch (error) {
+          hideLoadingState();
+          console.error("Error reloading from JSON:", error);
+          showNotification('Error reloading from JSON: ' + error.message, 'error');
+        }
+      }
+
+      // Updated show notification function to handle error type
+      function showNotification(message, type = 'success') {
+        let bgColor, icon;
+        
+        switch(type) {
+          case 'error':
+            bgColor = 'bg-red-500';
+            icon = `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>`;
+            break;
+          case 'warning':
+            bgColor = 'bg-yellow-500';
+            icon = `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>`;
+            break;
+          default:
+            bgColor = 'bg-green-500';
+            icon = `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>`;
+        }
+
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 fade-in max-w-md`;
+        notification.innerHTML = `
+          <div class="flex items-start gap-2">
+            ${icon}
+            <span class="text-sm">${message}</span>
+          </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Remove notification after 5 seconds
+        setTimeout(() => {
+          notification.remove();
+        }, 5000);
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        // Add button
+        addBtn.addEventListener("click", openAddModal);
+        
+        // Export button
+        const exportBtn = document.getElementById("exportBtn");
+        exportBtn.addEventListener("click", exportToJson);
+
+        // Import button
+        const importBtn = document.getElementById("importBtn");
+        importBtn.addEventListener("click", importFromJson);
+
+        // Reload button
+        const reloadBtn = document.getElementById("reloadBtn");
+        reloadBtn.addEventListener("click", reloadFromJson);
+
+        // Close info panel button
+        const closeInfoPanel = document.getElementById("closeInfoPanel");
+        if (closeInfoPanel) {
+          closeInfoPanel.addEventListener("click", () => {
+            closeInfoPanel.closest('.bg-blue-50').style.display = 'none';
+            localStorage.setItem('hideInfoPanel', 'true');
+          });
+        }
+
+        // Check if info panel should be hidden
+        if (localStorage.getItem('hideInfoPanel') === 'true') {
+          const infoPanel = document.querySelector('.bg-blue-50');
+          if (infoPanel) {
+            infoPanel.style.display = 'none';
+          }
+        }
+
+        // Form submission
+        portfolioForm.addEventListener("submit", handleFormSubmit);
+
+        // Close modal buttons
+        closeModal.addEventListener("click", closeModalHandler);
+        cancelBtn.addEventListener("click", closeModalHandler);
+
+        // Handle clicks on portfolio grid (for edit/delete)
+        portfolioGrid.addEventListener("click", (e) => {
+          const editBtn = e.target.closest(".edit-btn");
+          const deleteBtn = e.target.closest(".delete-btn");
+
+          if (editBtn) {
+            const id = editBtn.getAttribute("data-id");
+            openEditModal(id);
+          }
+
+          if (deleteBtn) {
+            const id = deleteBtn.getAttribute("data-id");
+            openConfirmModal(id);
+          }
+        });
+
+        // Delete confirmation
+        confirmDeleteBtn.addEventListener("click", handleDelete);
+        cancelDeleteBtn.addEventListener("click", closeConfirmModal);
+
+        // Close modals when clicking outside
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            closeModalHandler();
+          }
+        });
+
+        confirmModal.addEventListener("click", (e) => {
+          if (e.target === confirmModal) {
+            closeConfirmModal();
+          }
+        });
+      }
+
+      // Note: App initialization is now handled by the authentication script
+    </script>
+  </body>
+</html>
