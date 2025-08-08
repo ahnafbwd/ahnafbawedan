@@ -2661,12 +2661,29 @@
             }
         });
         
-        // Initialize project manager
+        // Initialize project manager with safety check
         document.addEventListener('DOMContentLoaded', () => {
-            projectsManager.init();
-            
-            // Add admin tools if user has admin session
-            addAdminTools();
+            // Wait for scripts to fully load
+            setTimeout(() => {
+                if (window.projectsManager && typeof window.projectsManager.init === 'function') {
+                    projectsManager.init();
+                    console.log('✅ Project manager initialized successfully');
+                } else {
+                    console.error('❌ Project manager not available, retrying...');
+                    // Retry after additional delay
+                    setTimeout(() => {
+                        if (window.projectsManager && typeof window.projectsManager.init === 'function') {
+                            projectsManager.init();
+                            console.log('✅ Project manager initialized on retry');
+                        } else {
+                            console.error('❌ Project manager still not available');
+                        }
+                    }, 500);
+                }
+                
+                // Add admin tools if user has admin session
+                addAdminTools();
+            }, 100);
         });
         
         // Admin tools for portfolio management
