@@ -115,8 +115,9 @@ class ProjectManager {
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-sm ${categoryColor} px-2 py-1 rounded-full">${project.categoryLabel}</span>
                         <div class="flex space-x-2">
-                            ${project.link !== '#' ? `<a href="${project.link}" target="_blank" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i></a>` : ''}
-                            ${project.github !== '#' ? `<a href="${project.github}" target="_blank" class="text-primary hover:text-secondary"><i class="fab fa-github"></i></a>` : ''}
+                            ${(project.link && project.link !== '#' && project.link !== '') ? `<a href="${project.link}" target="_blank" class="text-blue-500 hover:text-blue-600 text-sm" title="Visit Website"><i class="fas fa-external-link-alt"></i></a>` : ''}
+                            ${(project.github && project.github !== '#' && project.github !== '') ? `<a href="${project.github}" target="_blank" class="text-gray-700 hover:text-gray-900 text-sm" title="View Code"><i class="fab fa-github"></i></a>` : ''}
+                            ${(!project.github || project.github === '#' || project.github === '') ? `<span class="text-gray-400 text-xs bg-gray-100 px-2 py-1 rounded" title="Private Repository"><i class="fas fa-lock mr-1"></i>Private</span>` : ''}
                         </div>
                     </div>
                     <div class="mb-2">
@@ -248,9 +249,9 @@ class ProjectManager {
                         <div class="p-6">
                             <!-- Action Buttons -->
                             <div class="flex flex-wrap gap-3 mb-6">
-                                ${project.link !== '#' ? `<a href="${project.link}" target="_blank" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition shadow-md hover:shadow-lg text-sm"><i class="fas fa-external-link-alt mr-2"></i>Live Demo</a>` : ''}
-                                ${project.github !== '#' ? `<a href="${project.github}" target="_blank" class="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition shadow-md hover:shadow-lg text-sm"><i class="fab fa-github mr-2"></i>View Code</a>` : ''}
-                                <button onclick="projectManager.shareProject(${project.id})" class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition shadow-md hover:shadow-lg text-sm">
+                                ${(project.link && project.link !== '#' && project.link !== '') ? `<a href="${project.link}" target="_blank" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition shadow-md hover:shadow-lg text-sm"><i class="fas fa-external-link-alt mr-2"></i>Live Demo</a>` : ''}
+                                ${(project.github && project.github !== '#' && project.github !== '') ? `<a href="${project.github}" target="_blank" class="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition shadow-md hover:shadow-lg text-sm"><i class="fab fa-github mr-2"></i>View Code</a>` : `<span class="flex items-center px-4 py-2 bg-gray-300 text-gray-600 rounded-lg text-sm cursor-not-allowed"><i class="fas fa-lock mr-2"></i>Private Repository</span>`}
+                                <button onclick="projectsManager.shareProject(${project.id})" class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition shadow-md hover:shadow-lg text-sm">
                                     <i class="fas fa-share-alt mr-2"></i>Share Project
                                 </button>
                             </div>

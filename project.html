@@ -354,16 +354,57 @@
                   <label
                     for="image"
                     class="block text-sm font-medium text-gray-700"
-                    >Image Path</label
+                    >Project Image</label
                   >
-                  <input
-                    type="text"
-                    id="image"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="assets/image/project.png"
-                  />
+                  <div class="space-y-2">
+                    <!-- Image Upload Option -->
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
+                      <input
+                        type="file"
+                        id="imageUpload"
+                        accept="image/*"
+                        class="hidden"
+                      />
+                      <label for="imageUpload" class="cursor-pointer block">
+                        <div class="space-y-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                          </svg>
+                          <div class="text-sm">
+                            <span class="font-medium text-blue-600 hover:text-blue-500">Upload an image</span>
+                            <span class="text-gray-500"> or drag and drop</span>
+                          </div>
+                          <p class="text-xs text-gray-500">PNG, JPG, WEBP up to 5MB</p>
+                        </div>
+                      </label>
+                    </div>
+                    
+                    <!-- Image Preview -->
+                    <div id="imagePreview" class="hidden">
+                      <img id="previewImg" class="w-full h-32 object-cover rounded-lg border" alt="Preview">
+                      <div class="flex justify-between items-center mt-2">
+                        <span id="fileName" class="text-sm text-gray-600"></span>
+                        <button type="button" id="removeImage" class="text-red-500 hover:text-red-700 text-sm">
+                          <i class="fas fa-trash mr-1"></i>Remove
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <!-- Manual Path Input -->
+                    <div class="relative">
+                      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-link text-gray-400 text-sm"></i>
+                      </div>
+                      <input
+                        type="text"
+                        id="image"
+                        class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                        placeholder="Or enter image path manually (e.g., assets/image/project.png)"
+                      />
+                    </div>
+                  </div>
                   <p class="text-xs text-gray-500">
-                    Path to project image (leave blank for placeholder)
+                    Upload an image or provide a path to existing image. Uploaded images will be converted to base64 format.
                   </p>
                 </div>
 
@@ -372,28 +413,40 @@
                     <label
                       for="link"
                       class="block text-sm font-medium text-gray-700"
-                      >Project Link</label
+                      >Website URL</label
                     >
-                    <input
-                      type="url"
-                      id="link"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="https://"
-                    />
+                    <div class="relative">
+                      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-globe text-gray-400 text-sm"></i>
+                      </div>
+                      <input
+                        type="url"
+                        id="link"
+                        class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                        placeholder="https://example.com (optional)"
+                      />
+                    </div>
+                    <p class="text-xs text-gray-500">Leave blank if no live demo available</p>
                   </div>
 
                   <div class="space-y-1">
                     <label
                       for="github"
                       class="block text-sm font-medium text-gray-700"
-                      >GitHub Link</label
+                      >GitHub Repository</label
                     >
-                    <input
-                      type="url"
-                      id="github"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="https://github.com/"
-                    />
+                    <div class="relative">
+                      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fab fa-github text-gray-400 text-sm"></i>
+                      </div>
+                      <input
+                        type="url"
+                        id="github"
+                        class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                        placeholder="https://github.com/username/repo (optional)"
+                      />
+                    </div>
+                    <p class="text-xs text-gray-500">Leave blank for private repositories</p>
                   </div>
                 </div>
 
@@ -868,6 +921,96 @@
       const linkInput = document.getElementById("link");
       const githubInput = document.getElementById("github");
 
+      // Image upload elements
+      const imageUpload = document.getElementById("imageUpload");
+      const imagePreview = document.getElementById("imagePreview");
+      const previewImg = document.getElementById("previewImg");
+      const fileName = document.getElementById("fileName");
+      const removeImageBtn = document.getElementById("removeImage");
+
+      // Image upload handling
+      imageUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          // Validate file type
+          if (!file.type.startsWith('image/')) {
+            showNotification('Please select a valid image file.', 'error');
+            return;
+          }
+          
+          // Validate file size (5MB max)
+          if (file.size > 5 * 1024 * 1024) {
+            showNotification('Image size must be less than 5MB.', 'error');
+            return;
+          }
+          
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const base64 = e.target.result;
+            
+            // Show preview
+            previewImg.src = base64;
+            fileName.textContent = file.name;
+            imagePreview.classList.remove('hidden');
+            
+            // Set the base64 data to the image input
+            imageInput.value = base64;
+            
+            showNotification('Image uploaded successfully!', 'success');
+          };
+          
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Remove uploaded image
+      removeImageBtn.addEventListener('click', function() {
+        imageUpload.value = '';
+        imageInput.value = '';
+        imagePreview.classList.add('hidden');
+        showNotification('Image removed.', 'info');
+      });
+
+      // Drag and drop handling
+      const uploadArea = imageUpload.parentElement;
+      
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('border-blue-500', 'bg-blue-50');
+      });
+      
+      uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
+      });
+      
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          imageUpload.files = files;
+          imageUpload.dispatchEvent(new Event('change'));
+        }
+      });
+
+      // Link validation helper
+      function validateAndFormatLink(url) {
+        if (!url || url.trim() === '') {
+          return '';
+        }
+        
+        url = url.trim();
+        
+        // Add https:// if no protocol specified
+        if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+          url = 'https://' + url;
+        }
+        
+        return url;
+      }
+
       // Render portfolio items to the grid
       function renderPortfolioItems() {
         portfolioGrid.innerHTML = "";
@@ -1009,15 +1152,15 @@
           title: titleInput.value.trim(),
           category: categoryInput.value,
           categoryLabel: categoryLabels[categoryInput.value] || categoryInput.value,
-          image: imageInput.value.trim() || undefined,
+          image: imageInput.value.trim() || "https://via.placeholder.com/400x300?text=Project+Image",
           technologies: technologiesInput.value.trim().split(",").map(tech => tech.trim()).filter(tech => tech),
           description: descriptionInput.value.trim(),
           features: featuresInput.value.trim().split("\n").map(feature => feature.trim()).filter(feature => feature),
           status: statusInput.value,
           year: yearInput.value,
           client: clientInput.value.trim(),
-          link: linkInput.value.trim() || "#",
-          github: githubInput.value.trim() || "#"
+          link: validateAndFormatLink(linkInput.value) || "",
+          github: validateAndFormatLink(githubInput.value) || ""
         };
 
         if (currentEditId) {
