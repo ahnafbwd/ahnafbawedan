@@ -6,19 +6,18 @@
       "category": "mobile",
       "categoryLabel": "Mobile App",
       "image": "assets/image/saysco.png",
-      "technologies": ["Kotlin", "Machine Learning", "Node JS"],
-      "description": "Aplikasi Essay Scoring dengan fitur canggih untuk penilaian otomatis dan analisis data.",
+      "technologies": ["Kotlin", "Phython", "Node JS", "SQLite"],
+      "description": "Aplikasi Essay Scoring dengan fitur canggih untuk penilaian otomatis.",
       "features": [
         "Real-time essay scoring",
         "Automated feedback generation",
-        "Multi-language support",
-        "Comprehensive analytics dashboard"
+
       ],
       "status": "Completed",
       "year": "2024",
       "client": "Capstone Bangkit Academy Batch 2 2023",
       "link": "#",
-      "github": "http://github.com/saysco"
+      "github": "http://github.com/capstone-saysco"
     },
     {
       "id": 2,
@@ -26,12 +25,12 @@
       "category": "mobile",
       "categoryLabel": "Mobile App",
       "image": "assets/image/dapurbunda.png",
-      "technologies": ["Flutter", "Firebase", "REST API", "Dart"],
-      "description": "Full-featured catering app with menu browsing, order management, and real-time tracking for local catering business.",
+      "technologies": ["Flutter", "REST API", "Dart"],
+      "description": "Aplikasi pemesanan menu katering bunda dengan fitur rekomendasi menu pilihan.",
       "features": [
-        "Menu browsing and filtering",
+        "Menu browsing and recommendation",
         "Real-time order tracking",
-        "Payment integration",
+        "WhatsApp integration",
         "Customer reviews and ratings"
       ],
       "status": "Completed",
@@ -42,36 +41,36 @@
     },
     {
       "id": 3,
-      "title": "DiKantin Food Ordering",
+      "title": "DiKantin",
       "category": "mobile",
       "categoryLabel": "Mobile App",
       "image": "assets/image/dikantin.jpg",
-      "technologies": ["Flutter", "Firebase", "Dart", "Cloud Functions"],
+      "technologies": ["Flutter", "Firebase", "Dart", "REST API", "GetX", "Provider"],
       "description": "Mobile food ordering application for campus canteen with real-time menu updates and order tracking.",
       "features": [
-        "Real-time menu updates",
-        "Order queue management",
+        "Real-time menu updates and recommendation",
+        "Real-time order tracking",
         "Digital payment system",
-        "Nutrition information display"
+        "Canteen menu management "
       ],
       "status": "Completed",
       "year": "2024",
       "client": "Campus Canteen",
-      "link": "#",
+      "link": "dikantin.com",
       "github": "#"
     },
     {
       "id": 4,
-      "title": "Gassin Gas Delivery",
+      "title": "Gassin",
       "category": "mobile",
       "categoryLabel": "Mobile App",
       "image": "assets/image/gassin.jpg",
-      "technologies": ["Flutter", "Firebase", "Google Maps API", "Payment Gateway"],
-      "description": "Gas delivery application with real-time tracking, online payment, and location-based services for gas cylinder orders.",
+      "technologies": ["Kotlin", "Firebase", "REST API", "SQLite"],
+      "description": "Gas delivery management app with real-time tracking, online payment, and courier management delivery for gas cylinder orders.",
       "features": [
         "Real-time delivery tracking",
-        "GPS location services",
-        "Multiple payment methods",
+        "Management gas order",
+        "Management courier",
         "Order scheduling system"
       ],
       "status": "Completed",
@@ -79,29 +78,9 @@
       "client": "Rumah Gas",
       "link": "#",
       "github": "#"
-    },
+    },   
     {
       "id": 5,
-      "title": "Saysco Mobile App",
-      "category": "mobile",
-      "categoryLabel": "Mobile App",
-      "image": "assets/image/saysco.png",
-      "technologies": ["Flutter", "Firebase", "Dart", "REST API"],
-      "description": "Modern mobile application with intuitive interface and advanced features for enhanced user experience.",
-      "features": [
-        "Intuitive user interface",
-        "Advanced search functionality",
-        "Real-time notifications",
-        "Offline data synchronization"
-      ],
-      "status": "Completed",
-      "year": "2024",
-      "client": "Saysco Company",
-      "link": "#",
-      "github": "#"
-    },
-    {
-      "id": 6,
       "title": "Caricuan UI/UX Design",
       "category": "design",
       "categoryLabel": "UI/UX Design",
@@ -121,17 +100,17 @@
       "github": "#"
     },
     {
-      "id": 7,
-      "title": "Mie Custom Order",
+      "id": 6,
+      "title": "Mie Custom",
       "category": "mobile",
       "categoryLabel": "Mobile App",
       "image": "assets/image/miecustom.png",
-      "technologies": ["Flutter", "Firebase", "Payment Gateway", "Push Notifications"],
+      "technologies": ["Java", "REST API", "Crips Chat"],
       "description": "Custom noodle ordering app allowing customers to customize their orders with various toppings and preferences.",
       "features": [
         "Custom order builder",
         "Real-time price calculation",
-        "Payment integration",
+        "Customer service chat realtime",
         "Order status notifications"
       ],
       "status": "Completed",
@@ -146,12 +125,11 @@
       "category": "web",
       "categoryLabel": "Web Application",
       "image": "assets/image/mighty.jpg",
-      "technologies": ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
-      "description": "Business management web platform for Mighty Indonesia with features for inventory, sales tracking, and customer management.",
+      "technologies": ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Wordpress"],
+      "description": "Business profile web platform for Mighty Indonesia.",
       "features": [
         "Inventory management",
         "Sales tracking and analytics",
-        "Customer relationship management",
         "Financial reporting"
       ],
       "status": "Completed",
@@ -163,19 +141,18 @@
     {
       "id": 9,
       "title": "Kaba Arabic Learning",
-      "category": "mobile",
-      "categoryLabel": "Mobile App",
+      "category": "web",
+      "categoryLabel": "Web Application",
       "image": "assets/image/kaba.jpg",
-      "technologies": ["Flutter", "Firebase", "Audio Processing", "Progress Tracking"],
-      "description": "Interactive Arabic learning application with pronunciation guide, progress tracking, and gamified learning experience.",
+      "technologies": ["Laravel", "Bootstraps", "Javascript", "PHP", "MySQL"],
+      "description": "Web E-learning platform for Arabic language course.",
       "features": [
-        "Interactive lessons",
-        "Pronunciation guide",
-        "Progress tracking",
-        "Gamified learning"
+        "Super Admin",
+        "Teacher dashboard",
+        "Student dashboard",
       ],
       "status": "Completed",
-      "year": "2024",
+      "year": "2023",
       "client": "Kaba Arabic Course",
       "link": "#",
       "github": "#"
