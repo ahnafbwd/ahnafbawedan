@@ -2,22 +2,23 @@
   "projects": [
     {
       "id": 1,
-      "title": "Saysco",
-      "category": "mobile",
-      "categoryLabel": "Mobile App",
+      "title": "Saysco Inventory System",
+      "category": "web",
+      "categoryLabel": "Web Application",
       "image": "assets/image/saysco.png",
-      "technologies": ["Kotlin", "Phython", "Node JS", "SQLite"],
-      "description": "Aplikasi Essay Scoring dengan fitur canggih untuk penilaian otomatis.",
+      "technologies": ["Laravel", "MySQL", "Bootstrap", "JavaScript"],
+      "description": "Comprehensive inventory management system with real-time stock tracking, automated reports, and multi-user access control.",
       "features": [
-        "Real-time essay scoring",
-        "Automated feedback generation",
-
+        "Real-time inventory tracking",
+        "Automated stock alerts",
+        "Multi-user role management",
+        "Comprehensive reporting"
       ],
       "status": "Completed",
       "year": "2024",
-      "client": "Capstone Bangkit Academy Batch 2 2023",
+      "client": "Saysco Company",
       "link": "#",
-      "github": "http://github.com/capstone-saysco"
+      "github": "#"
     },
     {
       "id": 2,
@@ -25,12 +26,12 @@
       "category": "mobile",
       "categoryLabel": "Mobile App",
       "image": "assets/image/dapurbunda.png",
-      "technologies": ["Flutter", "REST API", "Dart"],
-      "description": "Aplikasi pemesanan menu katering bunda dengan fitur rekomendasi menu pilihan.",
+      "technologies": ["Flutter", "Firebase", "REST API", "Dart"],
+      "description": "Full-featured catering app with menu browsing, order management, and real-time tracking for local catering business.",
       "features": [
-        "Menu browsing and recommendation",
+        "Menu browsing and filtering",
         "Real-time order tracking",
-        "WhatsApp integration",
+        "Payment integration",
         "Customer reviews and ratings"
       ],
       "status": "Completed",
@@ -41,119 +42,141 @@
     },
     {
       "id": 3,
-      "title": "DiKantin",
+      "title": "DiKantin Food Ordering",
       "category": "mobile",
       "categoryLabel": "Mobile App",
       "image": "assets/image/dikantin.jpg",
-      "technologies": ["Flutter", "Firebase", "Dart", "REST API", "GetX", "Provider"],
+      "technologies": ["Flutter", "Firebase", "Dart", "Cloud Functions"],
       "description": "Mobile food ordering application for campus canteen with real-time menu updates and order tracking.",
       "features": [
-        "Real-time menu updates and recommendation",
-        "Real-time order tracking",
-        "Digital payment system",
-        "Canteen menu management "
+        "Real-time menu display",
+        "Order queue management",
+        "Push notifications",
+        "Payment gateway integration"
       ],
       "status": "Completed",
       "year": "2024",
       "client": "Campus Canteen",
-      "link": "dikantin.com",
+      "link": "#",
       "github": "#"
     },
     {
       "id": 4,
-      "title": "Gassin",
+      "title": "Gassin Gas Delivery",
       "category": "mobile",
       "categoryLabel": "Mobile App",
       "image": "assets/image/gassin.jpg",
-      "technologies": ["Kotlin", "Firebase", "REST API", "SQLite"],
-      "description": "Gas delivery management app with real-time tracking, online payment, and courier management delivery for gas cylinder orders.",
+      "technologies": ["Flutter", "Firebase", "Google Maps", "Dart"],
+      "description": "On-demand gas delivery application with GPS tracking, real-time updates, and secure payment system.",
       "features": [
-        "Real-time delivery tracking",
-        "Management gas order",
-        "Management courier",
-        "Order scheduling system"
-      ],
-      "status": "Completed",
-      "year": "2023",
-      "client": "Rumah Gas",
-      "link": "#",
-      "github": "#"
-    },   
-    {
-      "id": 5,
-      "title": "Caricuan UI/UX Design",
-      "category": "design",
-      "categoryLabel": "UI/UX Design",
-      "image": "assets/image/caricuan.png",
-      "technologies": ["Figma", "Adobe XD", "Prototyping", "User Research"],
-      "description": "Comprehensive UI/UX design project with modern interface design and user experience optimization.",
-      "features": [
-        "User research and personas",
-        "Wireframing and prototyping",
-        "Responsive design system",
-        "Usability testing"
+        "Real-time GPS tracking",
+        "Automated delivery scheduling",
+        "Secure payment processing",
+        "Customer notification system"
       ],
       "status": "Completed",
       "year": "2024",
-      "client": "Caricuan Platform",
+      "client": "Gas Delivery Service",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 5,
+      "title": "Kaba Arabic Learning",
+      "category": "mobile",
+      "categoryLabel": "Mobile App",
+      "image": "assets/image/kaba.jpg",
+      "technologies": ["Flutter", "SQLite", "Audio API", "Dart"],
+      "description": "Interactive Arabic learning app with pronunciation guides, quizzes, and progress tracking for students.",
+      "features": [
+        "Interactive lessons",
+        "Audio pronunciation guides",
+        "Progress tracking",
+        "Quiz and assessment system"
+      ],
+      "status": "Completed",
+      "year": "2024",
+      "client": "Kaba Arabic Course",
       "link": "#",
       "github": "#"
     },
     {
       "id": 6,
-      "title": "Mie Custom",
-      "category": "mobile",
-      "categoryLabel": "Mobile App",
-      "image": "assets/image/miecustom.png",
-      "technologies": ["Java", "REST API", "Crips Chat"],
-      "description": "Custom noodle ordering app allowing customers to customize their orders with various toppings and preferences.",
+      "title": "Mighty Indonesia Portfolio",
+      "category": "web",
+      "categoryLabel": "Web Design",
+      "image": "assets/image/mighty.jpg",
+      "technologies": ["HTML5", "CSS3", "JavaScript", "Bootstrap"],
+      "description": "Professional company portfolio website with modern design, responsive layout, and interactive elements.",
       "features": [
-        "Custom order builder",
-        "Real-time price calculation",
-        "Customer service chat realtime",
-        "Order status notifications"
+        "Responsive design",
+        "Interactive animations",
+        "Contact form integration",
+        "SEO optimization"
       ],
       "status": "Completed",
       "year": "2024",
-      "client": "Mie Custom Restaurant",
-      "link": "#",
-      "github": "#"
-    },
-    {
-      "id": 8,
-      "title": "Mighty Indonesia",
-      "category": "web",
-      "categoryLabel": "Web Application",
-      "image": "assets/image/mighty.jpg",
-      "technologies": ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Wordpress"],
-      "description": "Business profile web platform for Mighty Indonesia.",
-      "features": [
-        "Inventory management",
-        "Sales tracking and analytics",
-        "Financial reporting"
-      ],
-      "status": "Completed",
-      "year": "2023",
       "client": "Mighty Indonesia",
       "link": "#",
       "github": "#"
     },
     {
-      "id": 9,
-      "title": "Kaba Arabic Learning",
+      "id": 7,
+      "title": "Caricuan Digital Platform",
       "category": "web",
       "categoryLabel": "Web Application",
-      "image": "assets/image/kaba.jpg",
-      "technologies": ["Laravel", "Bootstraps", "Javascript", "PHP", "MySQL"],
-      "description": "Web E-learning platform for Arabic language course.",
+      "image": "assets/image/caricuan.png",
+      "technologies": ["React", "Node.js", "MongoDB", "Express"],
+      "description": "Digital platform for creative content sharing with user management, content moderation, and social features.",
       "features": [
-        "Super Admin",
-        "Teacher dashboard",
-        "Student dashboard",
+        "User authentication system",
+        "Content management",
+        "Social interaction features",
+        "Admin dashboard"
+      ],
+      "status": "In Progress",
+      "year": "2024",
+      "client": "Caricuan Creative",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 8,
+      "title": "MieCustom Ordering System",
+      "category": "web",
+      "categoryLabel": "Web Application",
+      "image": "assets/image/miecustom.png",
+      "technologies": ["PHP", "MySQL", "jQuery", "Bootstrap"],
+      "description": "Custom noodle ordering system with ingredient customization, order tracking, and inventory management.",
+      "features": [
+        "Ingredient customization",
+        "Order management",
+        "Inventory tracking",
+        "Customer dashboard"
       ],
       "status": "Completed",
       "year": "2023",
-      "client": "Kaba Arabic Course",
+      "client": "MieCustom Restaurant",
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "id": 9,
+      "title": "UI/UX Design Portfolio",
+      "category": "design",
+      "categoryLabel": "UI/UX Design",
+      "image": "assets/image/about.jpg",
+      "technologies": ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
+      "description": "Collection of user interface and user experience design projects for various mobile and web applications.",
+      "features": [
+        "Mobile app designs",
+        "Web interface mockups",
+        "User journey mapping",
+        "Prototype development"
+      ],
+      "status": "Ongoing",
+      "year": "2023-2024",
+      "client": "Various Clients",
       "link": "#",
       "github": "#"
     }
